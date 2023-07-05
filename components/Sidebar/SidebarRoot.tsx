@@ -33,7 +33,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
     setIsSidebarOpen(true);
   }, [isSidebarOpen]);
 
-  const myCollections = useMemo(
+  const collections = useMemo(
     () => [
       {
         label: "Favoritos",
@@ -90,9 +90,9 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   );
 
   return (
-    <div className="flex h-full">
+    <div className="flex items-end h-full">
       {isSidebarOpen ? (
-        <div className="flex flex-col bg-black h-full w-[300px] transition-all">
+        <div className="flex flex-col bg-black h-full w-[280px] transition-all">
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               <span>
@@ -118,31 +118,26 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               <hr className="border-neutral-800 mx-2" />
             </div>
 
-            <SidebarBox className="flex flex-col items-start  gap-2">
+            <div className="flex flex-col  h-full w-[280px] transition-all">
               <p className="text-xl font-bold pb-4 p-8">
                 Minha <span className="text-amber-400">coleção</span>
               </p>
 
-              {myCollections.map((item) => (
-                <SidebarItem
-                  key={item.label}
-                  href={item.href}
-                  label={item.label}
-                  className="p-0 pl-4 flex gap-0 flex-col items-center justify-center hover:bg-transparent hover:text-white transition-all"
-                />
+              {collections.map((item) => (
+                <SidebarItem key={item.label} {...item} />
               ))}
-            </SidebarBox>
+            </div>
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col bg-neutral-900 h-full w-[100px] transition-all">
-          <BsArrowBarRight
-            onClick={handleOpenBar}
-            size={23}
-            className="text-neutral-400 hover:text-white cursor-pointer transition-all relative top-8 left-4"
-          />
+        <div className="flex flex-col gap-4 bg-red-100 h-full w-[100px] transition-all">
+          <SidebarBox className="flex flex-col  flex-1">
+            <BsArrowBarRight
+              onClick={handleOpenBar}
+              size={23}
+              className="text-neutral-400 hover:text-white cursor-pointer transition-all w-full my-8"
+            />
 
-          <SidebarBox className="flex-1 pt-16">
             {routes.map((item) => (
               <SidebarItem
                 active={item.active}
@@ -150,6 +145,17 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                 href={item.href}
                 key={item.label}
                 className="p-0 flex flex-col items-center justify-center h-12"
+              />
+            ))}
+
+            <hr className="border-neutral-800 mx-2" />
+
+            {collections.map((item) => (
+              <SidebarItem
+                key={item.label}
+                href={item.href}
+                icon={item.icon}
+                className="mt-1 p-0 flex flex-col items-center justify-center h-12"
               />
             ))}
           </SidebarBox>

@@ -9,13 +9,14 @@ import Link from "next/link";
 export default function Home() {
   const [gameList, setGameList] = useState<IGameList[]>([]);
 
+  console.log('ping')
+
   useEffect(() => {
     axios
       .get("https://free-to-play-games-database.p.rapidapi.com/api/games", {
         headers: {
-          "X-RapidAPI-Key":
-            process.env.KEY_API,
-          "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+          "X-RapidAPI-Key": process.env.NEXT_PUBLIC_KEY_API,
+          "X-RapidAPI-Host": process.env.NEXT_PUBLIC_KEY_HOST,
         },
       })
       .then((response) => {

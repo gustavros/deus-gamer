@@ -6,7 +6,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 export const HeaderRoot = () => {
   return (
-    <header className="bg-neutral-900 py-8 px-2 flex items-center w-full">
+    <header className="bg-neutral-900 py-6 px-2 flex items-center w-full">
       <div className="relative flex items-center gap-4">
         <AiOutlineSearch
           size={18}

@@ -28,9 +28,9 @@ export const SidebarItem = ({
         className
       )}
     >
-      {Icon && <Icon size={20} />}
+      {Icon && <Icon size={23} />}
 
-      <p className="truncate w-full">{label}</p>
+      <p className="truncate">{label}</p>
     </Link>
   );
 };

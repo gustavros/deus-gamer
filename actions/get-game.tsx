@@ -7,8 +7,8 @@ export const getGame = async (id: string): Promise<IGame> => {
     url: "https://free-to-play-games-database.p.rapidapi.com/api/game",
     params: { id: id },
     headers: {
-      "X-RapidAPI-Key": process.env.KEY_API,
-      "X-RapidAPI-Host": "free-to-play-games-database.p.rapidapi.com",
+      "X-RapidAPI-Key": process.env.NEXT_PUBLIC_KEY_API,
+      "X-RapidAPI-Host": process.env.NEXT_PUBLIC_KEY_HOST,
     },
   };
 
