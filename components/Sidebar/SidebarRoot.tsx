@@ -90,9 +90,9 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   );
 
   return (
-    <div className="flex items-end h-full">
+    <div className="flex h-full">
       {isSidebarOpen ? (
-        <div className="flex flex-col bg-black h-full w-[280px] transition-all">
+        <div className="flex flex-col bg-black w-[280px]">
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               <span>
@@ -118,7 +118,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               <hr className="border-neutral-800 mx-2" />
             </div>
 
-            <div className="flex flex-col  h-full w-[280px] transition-all">
+            <div className="flex flex-col w-[280px] transition-all">
               <p className="text-xl font-bold pb-4 p-8">
                 Minha <span className="text-amber-400">coleção</span>
               </p>
@@ -130,7 +130,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 bg-red-100 h-full w-[100px] transition-all">
+        <div className="flex flex-col gap-4 bg-red-100 w-[100px] transition-all">
           <SidebarBox className="flex flex-col  flex-1">
             <BsArrowBarRight
               onClick={handleOpenBar}
