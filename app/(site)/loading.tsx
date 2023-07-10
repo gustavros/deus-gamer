@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const loading = () => {
+export default function loading() {
   return (
-    <div>CARREGANDOOOOOOOOOOOOOOOOOO</div>
-  )
+    <div className="border-2 border-opacity-20 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+  );
 }
-
-export default loading

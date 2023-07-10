@@ -10,9 +10,6 @@ body,
   color-scheme: dark;
 }
 
-.swiper {
-}
-
 .swiper .swiper-pagination-bullet {
   @apply bg-amber-700;
 }
