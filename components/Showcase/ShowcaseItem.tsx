@@ -18,7 +18,7 @@ export const ShowcaseItem = ({ className, data }: ShowcaseItemProps) => {
           return (
             <Link
               key={item.id}
-              href={``}
+              href={`game/${item.id}`}
               className="flex flex-row gap-4 h-auto text-md font-medium cursor-pointer hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 rounded-lg p-4"
             >
               <img

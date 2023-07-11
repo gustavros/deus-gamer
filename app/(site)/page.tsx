@@ -10,16 +10,18 @@ import Link from "next/link";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import "swiper/css/pagination";
 import "swiper/css";
 
 import { HeaderRoot } from "@/components/Header/HeaderRoot";
 import ShowcaseBox from "@/components/Showcase/ShowcaseBox";
+import { SwiperSlideItem } from "@/components/Swiper/SwiperSlideItem";
 
 export default function Home() {
   const [gameList, setGameList] = useState<IGameList[]>([]);
   const [releaseGameList, setReleaseGameList] = useState<IGameList[]>([]);
   const [popularGameList, setPopularGameList] = useState<IGameList[]>([]);
+  const [fpsGameList, setFpsGameList] = useState<IGameList[]>([]);
+  const [pvpGameList, setPvpGameList] = useState<IGameList[]>([]);
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -67,9 +69,30 @@ export default function Home() {
       }
     };
 
+    const fetchFpsGames = async () => {
+      const fpsGames = await fetchData({ category: "shooter" });
+
+      if (fpsGames) {
+        setFpsGameList(fpsGames);
+      }
+    };
+
+    const fetchPvpGameList = async () => {
+      const pvpGames = await fetchData({
+        category: "racing",
+        "sort-by": "alphabetical",
+      });
+
+      if (pvpGames) {
+        setPvpGameList(pvpGames);
+      }
+    };
+
     fetchGames();
     fetchReleaseGames();
     fetchPopularGames();
+    fetchFpsGames();
+    fetchPvpGameList();
   }, []);
 
   return (
@@ -145,30 +168,13 @@ export default function Home() {
               <Swiper
                 slidesPerView={5}
                 spaceBetween={20}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Pagination]}
-                className="swiper w-[1368px] mx-auto "
+                className="swiper w-[1540px] mx-auto "
               >
                 {gameList
                   .map((game) => {
                     return (
-                      <SwiperSlide className="mb-10">
-                        <Link key={game.id} href={`/game/${game.id}`}>
-                          <img
-                            src={game.thumbnail}
-                            alt={game.title}
-                            className="rounded"
-                          />
-
-                          <div className="flex flex-col pt-2">
-                            <h1 className="font-bold truncate">{game.title}</h1>
-                            <span className="p-1 bg-amber-800 rounded-lg w-fit text-sm">
-                              {game.genre}
-                            </span>
-                          </div>
-                        </Link>
+                      <SwiperSlide key={game.id} className="mb-10">
+                        <SwiperSlideItem game={game} />
                       </SwiperSlide>
                     );
                   })
@@ -192,6 +198,44 @@ export default function Home() {
                 buttonLabel="Ver mais"
                 data={releaseGameList}
               />
+            </div>
+
+            <div className="flex flex-col gap-2 py-12">
+              <h1 className="text-xl">Jogos de FPS</h1>
+              <Swiper
+                slidesPerView={5}
+                spaceBetween={20}
+                className="swiper w-[1540px] mx-auto "
+              >
+                {fpsGameList
+                  .map((game) => {
+                    return (
+                      <SwiperSlide key={game.id} className="mb-10">
+                        <SwiperSlideItem game={game} />
+                      </SwiperSlide>
+                    );
+                  })
+                  .slice(0, Math.random() * 200)}
+              </Swiper>
+            </div>
+
+            <div className="flex flex-col gap-2 py-12">
+              <h1 className="text-xl">Jogos de corrida</h1>
+              <Swiper
+                slidesPerView={5}
+                spaceBetween={20}
+                className="swiper w-[1540px] mx-auto "
+              >
+                {pvpGameList
+                  .map((game) => {
+                    return (
+                      <SwiperSlide key={game.id} className="mb-10">
+                        <SwiperSlideItem game={game} />
+                      </SwiperSlide>
+                    );
+                  })
+                  .slice(0, Math.random() * 200)}
+              </Swiper>
             </div>
           </div>
         </main>
