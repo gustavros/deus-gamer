@@ -142,14 +142,13 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
             />
 
             {routes.map((item) => (
-              <TooltipProvider>
+              <TooltipProvider key={item.label}>
                 <Tooltip>
                   <TooltipTrigger>
                     <SidebarItem
                       active={item.active}
                       icon={item.icon}
                       href={item.href}
-                      key={item.label}
                       className="p-0 flex flex-col items-center justify-center h-12"
                     />
                   </TooltipTrigger>
@@ -166,11 +165,10 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
             <hr className="border-neutral-800 mx-2" />
 
             {collections.map((item) => (
-              <TooltipProvider>
+              <TooltipProvider key={item.label}>
                 <Tooltip>
                   <TooltipTrigger>
                     <SidebarItem
-                      key={item.label}
                       href={item.href}
                       icon={item.icon}
                       className="mt-1 p-0 flex flex-col items-center justify-center h-12"

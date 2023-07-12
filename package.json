@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.3",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.6",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",

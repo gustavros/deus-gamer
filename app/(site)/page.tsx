@@ -8,13 +8,9 @@ import { IGameList } from "@/interfaces/IGameList";
 import Image from "next/image";
 import Link from "next/link";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
-import "swiper/css";
-
-import { HeaderRoot } from "@/components/Header/HeaderRoot";
 import ShowcaseBox from "@/components/Showcase/ShowcaseBox";
 import { SwiperSlideItem } from "@/components/Swiper/SwiperSlideItem";
+import SwiperSlideRoot from "@/components/Swiper/SwiperSlideRoot";
 
 export default function Home() {
   const [gameList, setGameList] = useState<IGameList[]>([]);
@@ -70,7 +66,10 @@ export default function Home() {
     };
 
     const fetchFpsGames = async () => {
-      const fpsGames = await fetchData({ category: "shooter" });
+      const fpsGames = await fetchData({
+        category: "shooter",
+        "sort-by": "popularity",
+      });
 
       if (fpsGames) {
         setFpsGameList(fpsGames);
@@ -80,7 +79,7 @@ export default function Home() {
     const fetchPvpGameList = async () => {
       const pvpGames = await fetchData({
         category: "racing",
-        "sort-by": "alphabetical",
+        "sort-by": "popularity",
       });
 
       if (pvpGames) {
@@ -97,8 +96,6 @@ export default function Home() {
 
   return (
     <>
-      <HeaderRoot />
-
       {loading ? (
         <div
           role="status"
@@ -164,22 +161,7 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col gap-2 py-12">
-              <h1 className="text-xl">Outros jogos</h1>
-              <Swiper
-                slidesPerView={5}
-                spaceBetween={20}
-                className="swiper w-[1540px] mx-auto "
-              >
-                {gameList
-                  .map((game) => {
-                    return (
-                      <SwiperSlide key={game.id} className="mb-10">
-                        <SwiperSlideItem game={game} />
-                      </SwiperSlide>
-                    );
-                  })
-                  .slice(6, 24)}
-              </Swiper>
+              <SwiperSlideRoot data={gameList} label="Outros jogos" />
             </div>
 
             <div className="grid grid-cols-3 gap-x-10 justify-around m-10">
@@ -200,43 +182,9 @@ export default function Home() {
               />
             </div>
 
-            <div className="flex flex-col gap-2 py-12">
-              <h1 className="text-xl">Jogos de FPS</h1>
-              <Swiper
-                slidesPerView={5}
-                spaceBetween={20}
-                className="swiper w-[1540px] mx-auto "
-              >
-                {fpsGameList
-                  .map((game) => {
-                    return (
-                      <SwiperSlide key={game.id} className="mb-10">
-                        <SwiperSlideItem game={game} />
-                      </SwiperSlide>
-                    );
-                  })
-                  .slice(0, Math.random() * 200)}
-              </Swiper>
-            </div>
+            <SwiperSlideRoot data={fpsGameList} label="Jogos de FPS" />
 
-            <div className="flex flex-col gap-2 py-12">
-              <h1 className="text-xl">Jogos de corrida</h1>
-              <Swiper
-                slidesPerView={5}
-                spaceBetween={20}
-                className="swiper w-[1540px] mx-auto "
-              >
-                {pvpGameList
-                  .map((game) => {
-                    return (
-                      <SwiperSlide key={game.id} className="mb-10">
-                        <SwiperSlideItem game={game} />
-                      </SwiperSlide>
-                    );
-                  })
-                  .slice(0, Math.random() * 200)}
-              </Swiper>
-            </div>
+            <SwiperSlideRoot data={pvpGameList} label="Jogos de PVP" />
           </div>
         </main>
       )}
