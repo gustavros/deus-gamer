@@ -4,11 +4,16 @@ import React, { ReactNode, useCallback, useMemo, useState } from "react";
 
 import { usePathname } from "next/navigation";
 
-import { MdDiscount, MdOutlineNewReleases } from "react-icons/md";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoMdDoneAll } from "react-icons/io";
-import { MdGamepad } from "react-icons/md";
+import { MdGamepad, MdDiscount, MdOutlineNewReleases } from "react-icons/md";
 import {
   BsArrowBarRight,
   BsRocketTakeoff,
@@ -25,7 +30,7 @@ interface SidebarRootProps {
 
 export const SidebarRoot = ({ children }: SidebarRootProps) => {
   const pathname = usePathname();
-  const clientName = "Gustavo Santana";
+  const user = "Gustavo Santana";
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -42,12 +47,12 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
       },
       {
         label: "Jogando",
-        icon: IoMdDoneAll,
+        icon: MdGamepad,
         href: "/playing",
       },
       {
         label: "Jogados",
-        icon: MdGamepad,
+        icon: IoMdDoneAll,
         href: "/played",
       },
       {
@@ -97,9 +102,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               <span>
                 Seja bem-vindo,
-                <span className="font-bold block text-amber-400">
-                  {clientName}
-                </span>
+                <span className="font-bold block text-amber-400">{user}</span>
               </span>
 
               <button
@@ -139,24 +142,48 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
             />
 
             {routes.map((item) => (
-              <SidebarItem
-                active={item.active}
-                icon={item.icon}
-                href={item.href}
-                key={item.label}
-                className="p-0 flex flex-col items-center justify-center h-12"
-              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <SidebarItem
+                      active={item.active}
+                      icon={item.icon}
+                      href={item.href}
+                      key={item.label}
+                      className="p-0 flex flex-col items-center justify-center h-12"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    className="border-neutral-800 bg-neutral-900 rounded"
+                  >
+                    <span className="text-sm">{item.label}</span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ))}
 
             <hr className="border-neutral-800 mx-2" />
 
             {collections.map((item) => (
-              <SidebarItem
-                key={item.label}
-                href={item.href}
-                icon={item.icon}
-                className="mt-1 p-0 flex flex-col items-center justify-center h-12"
-              />
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <SidebarItem
+                      key={item.label}
+                      href={item.href}
+                      icon={item.icon}
+                      className="mt-1 p-0 flex flex-col items-center justify-center h-12"
+                    />
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="right"
+                    className="border-neutral-800 bg-neutral-900 rounded"
+                  >
+                    <span className="text-sm">{item.label}</span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ))}
           </SidebarBox>
         </div>

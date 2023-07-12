@@ -1,5 +1,6 @@
 "use client";
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -50,9 +51,10 @@ export const HeaderRoot = () => {
         </div>
       </div>
 
-      <div className="bg-zinc-800 p-2 rounded-full w-10 flex items-center justify-center"> 
-        G
-      </div>
+      <Avatar>
+        <AvatarImage src="https://github.com/gustavros.png" />
+        <AvatarFallback className="border">GN</AvatarFallback>
+      </Avatar>
     </header>
   );
 };
