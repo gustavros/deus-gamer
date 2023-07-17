@@ -6,15 +6,14 @@ import { IGameList } from "@/interfaces/IGameList";
 
 interface ShowcaseItemProps {
   className?: string;
-
-  data: IGameList[];
+  data: IGameList[] | null;
 }
 
 export const ShowcaseItem = ({ className, data }: ShowcaseItemProps) => {
   return (
     <div className="w-full flex flex-col mt-8 ">
       {data
-        .map((item) => {
+        ?.map((item) => {
           return (
             <Link
               key={item.id}

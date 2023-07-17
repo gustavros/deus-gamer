@@ -6,16 +6,15 @@ interface ShowcaseBoxProps {
   title: string;
   buttonLabel: string;
   buttonAction?: () => void;
-
-  data: IGameList[];
+  data: IGameList[] | null;
 }
 
-export default function ShowcaseBox({
+export const ShowcaseBox = ({
   data,
   title,
   buttonLabel,
   buttonAction,
-}: ShowcaseBoxProps) {
+}: ShowcaseBoxProps) => {
   return (
     <div className="flex flex-col w-full">
       <div className="flex justify-between items-center">
@@ -27,4 +26,4 @@ export default function ShowcaseBox({
       <ShowcaseItem data={data} />
     </div>
   );
-}
+};

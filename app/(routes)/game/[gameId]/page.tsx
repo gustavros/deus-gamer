@@ -3,7 +3,6 @@
 import React from "react";
 
 import { getGame } from "@/actions/get-game";
-import { HeaderRoot } from "@/components/Header/HeaderRoot";
 import { Separator } from "@/components/ui/separator";
 
 import { BsBrowserEdge, BsPlusCircle, BsWindows } from "react-icons/bs";

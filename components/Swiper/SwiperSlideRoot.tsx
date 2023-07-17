@@ -7,7 +7,7 @@ import { SwiperSlideHeading } from "./SwiperSlideHeading";
 import { IGameList } from "@/interfaces/IGameList";
 
 interface SwiperSlideRootProps {
-  data: IGameList[];
+  data: IGameList[] | null;
   label: string;
 }
 
@@ -21,7 +21,7 @@ const SwiperSlideRoot = ({ data, label }: SwiperSlideRootProps) => {
         className="swiper w-[1540px] mx-auto "
       >
         {data
-          .map((game) => {
+          ?.map((game) => {
             return (
               <SwiperSlide key={game.id} className="mb-10">
                 <SwiperSlideItem game={game} />
