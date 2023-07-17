@@ -1,7 +1,7 @@
 import { IGame } from "@/interfaces/IGame";
 import axios from "axios";
 
-export const getGame = async (id: string): Promise<IGame> => {
+export const getGame = async (id: number): Promise<IGame> => {
   const options = {
     method: "GET",
     url: "https://free-to-play-games-database.p.rapidapi.com/api/game",

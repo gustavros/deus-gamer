@@ -11,6 +11,3 @@ export interface IGameList {
   release_date: Date;
   freetogame_profile_url: string;
 }
-
-
-

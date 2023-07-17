@@ -9,7 +9,7 @@ import { BsBrowserEdge, BsPlusCircle, BsWindows } from "react-icons/bs";
 
 interface GamePageProps {
   params: {
-    gameId: string;
+    gameId: number;
   };
 }
 
@@ -32,15 +32,15 @@ const GamePage = async ({ params }: GamePageProps) => {
   }
 
   return (
-    <div className="bg-neutral-900 text-white">
+    <div className="bg-neutral-900 text-white py-20">
       <div className="container mx-auto">
         <div className="p-6">
-          <h1 className="text-5xl font-bold text-amber-400 mb-8 py-10">
+          <h1 className="text-5xl font-bold text-amber-400 pb-2">
             {game.title}
           </h1>
           {/* <p className="text-zinc-200 mb-4">{game.developer}</p> */}
 
-          <div className="flex justify-between items-start gap-8 mt-8">
+          <div className="flex justify-between items-start gap-8 mt-4">
             <div>
               <div className="flex flex-col gap-8">
                 <div>
