@@ -33,7 +33,7 @@ export const ShowcaseItem = ({ className, data }: ShowcaseItemProps) => {
             </Link>
           );
         })
-        .slice(0, 5)}
+        .slice(0, 6)}
     </div>
   );
 };

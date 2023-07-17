@@ -23,6 +23,7 @@ import {
 
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
+import useSidebar from "@/hooks/UseSidebar";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -32,11 +33,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   const pathname = usePathname();
   const user = "Gustavo Santana";
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  const handleOpenBar = useCallback(() => {
-    setIsSidebarOpen(true);
-  }, [isSidebarOpen]);
+  const sidebar = useSidebar();
 
   const collections = useMemo(
     () => [
@@ -68,27 +65,27 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
     () => [
       {
         label: "Início",
-        active: pathname !== "/search",
+        active: pathname === "/",
         icon: MdDiscount,
         href: "/",
       },
       {
         label: "Últimos lançamentos",
-        active: pathname === "/releases",
+        active: pathname === "/release-date",
         icon: MdOutlineNewReleases,
-        href: "/releases",
+        href: "/sort/release-date",
       },
       {
         label: "Relevantes",
         active: pathname === "/relevance",
         icon: BsFire,
-        href: "/relevance",
+        href: "/sort/relevance",
       },
       {
         label: "Mais populares",
         active: pathname === "/popular",
         icon: BsRocketTakeoff,
-        href: "/popular",
+        href: "/sort/popularity",
       },
     ],
     [pathname]
@@ -96,7 +93,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
 
   return (
     <div className="flex h-full">
-      {isSidebarOpen ? (
+      {sidebar.isOpen ? (
         <div className="flex flex-col bg-black w-[280px]">
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
@@ -106,7 +103,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               </span>
 
               <button
-                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                onClick={sidebar.onClose}
                 className="text-neutral-400 hover:text-white"
               >
                 <BsArrowBarLeft size={23} />
@@ -121,7 +118,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               <hr className="border-neutral-800 mx-2" />
             </div>
 
-            <div className="flex flex-col w-[280px] transition-all">
+            <div className="flex flex-col w-[280px] ">
               <p className="text-xl font-bold pb-4 p-8">
                 Minha <span className="text-amber-400">coleção</span>
               </p>
@@ -136,7 +133,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
         <div className="flex flex-col gap-4 bg-red-100 w-[100px] transition-all">
           <SidebarBox className="flex flex-col  flex-1">
             <BsArrowBarRight
-              onClick={handleOpenBar}
+              onClick={sidebar.onOpen}
               size={23}
               className="text-neutral-400 hover:text-white cursor-pointer transition-all w-full my-8"
             />

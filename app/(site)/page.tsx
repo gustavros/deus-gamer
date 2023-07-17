@@ -37,12 +37,18 @@ export default function Home() {
     },
   });
 
+  const { data: relevance } = useFetch({
+    params: {
+      "sort-by": "release",
+    },
+  });
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
-        <main className="flex flex-col items-center gap-20 bg-neutral-900 ">
+        <main className="flex flex-col items-center gap-20 bg-neutral-900 py-8">
           <div className="flex flex-col justify-center items-center pt-20 w-full">
             <div>
               <div className="flex gap-10">
@@ -88,19 +94,22 @@ export default function Home() {
 
             <div className="grid grid-cols-3 gap-x-10 justify-around m-10">
               <ShowcaseBox
-                title="Mais vendidos"
+                href="/sort/relevance"
+                title="Mais relevantes"
                 buttonLabel="Ver mais"
-                data={games}
+                data={relevance}
               />
               <ShowcaseBox
-                title="Mais jogados"
-                buttonLabel="Ver mais"
-                data={popular}
-              />
-              <ShowcaseBox
+                href="/sort/release-date"
                 title="Jogos lançamentos"
                 buttonLabel="Ver mais"
                 data={releases}
+              />
+              <ShowcaseBox
+                href="/sort/popularity"
+                title="Mais jogados"
+                buttonLabel="Ver mais"
+                data={popular}
               />
             </div>
 
