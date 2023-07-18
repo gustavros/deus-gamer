@@ -13,8 +13,6 @@ Deus Gamer é uma plataforma de jogos que fornece acesso aos melhores jogos grat
 - [TypeScript](https://www.typescriptlang.org/)
 - [shadcn/ui](https://ui.shadcn.com/)
 
-Também foi adicionado a [**Prettier**](https://prettier.io/) para aumentar a produtividade e auxiliar a manter um padrão de código.
-
 ## Funcionalidades
 
 - [x] Ver detalhes do jogo
