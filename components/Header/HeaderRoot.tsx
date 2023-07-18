@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
@@ -11,10 +11,12 @@ import { twMerge } from "tailwind-merge";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
 import useSidebar from "@/hooks/UseSidebar";
+import { useFetch } from "@/hooks/useFetch";
+import HeaderSearch from "./HeaderSearch";
 
 export const HeaderRoot = () => {
   const pathname = usePathname();
-
+  const sidebar = useSidebar();
   const router = useRouter();
 
   const routes = [
@@ -29,8 +31,6 @@ export const HeaderRoot = () => {
       active: pathname === "/navigation",
     },
   ];
-
-  const sidebar = useSidebar();
 
   return (
     <header
@@ -61,17 +61,7 @@ export const HeaderRoot = () => {
             </Tooltip>
           </TooltipProvider>
 
-          <div className="relative">
-            <AiOutlineSearch
-              size={18}
-              className="text-neutral-400 absolute top-3 left-3"
-            />
-            <input
-              type="text"
-              className="rounded-3xl py-2 pl-10 placeholder:text-neutral-500 bg-neutral-800"
-              placeholder="Busque por jogos"
-            />
-          </div>
+          <HeaderSearch />
         </div>
         <div className="px-4 flex gap-4 text-neutral-500 font-medium">
           {routes.map((item) => (

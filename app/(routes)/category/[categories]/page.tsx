@@ -39,7 +39,7 @@ const CategoryPage = () => {
 
             <p className="text-neutral-400 font-bold">{category.description}</p>
           </div>
-          <div className="grid grid-cols-4 place-items-center gap-4">
+          <div className="grid grid-cols-4 gap-8 place-items-center ">
             {data?.map((game) => (
               <Link
                 href={`/game/${game.id}`}

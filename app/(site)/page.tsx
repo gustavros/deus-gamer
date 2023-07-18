@@ -8,6 +8,7 @@ import SwiperSlideRoot from "@/components/Swiper/SwiperSlideRoot";
 import Loading from "@/components/Loading";
 
 import { useFetch } from "@/hooks/useFetch";
+import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
@@ -94,24 +95,29 @@ export default function Home() {
               <SwiperSlideRoot data={games} label="Outros jogos" />
             </div>
 
-            <div className="grid grid-cols-3 gap-x-10 justify-around m-10">
+            <div className="grid grid-cols-3 place-items-center gap-8 justify-around m-10 px-8 divide-x divide-neutral-700">
               <ShowcaseBox
                 href="/sort/relevance"
                 title="Mais relevantes"
                 buttonLabel="Ver mais"
                 data={relevance}
+                classNames="pr-8"
               />
+
               <ShowcaseBox
                 href="/sort/release-date"
                 title="Jogos lançamentos"
                 buttonLabel="Ver mais"
                 data={releases}
+                classNames="pl-8"
               />
+
               <ShowcaseBox
                 href="/sort/popularity"
                 title="Mais jogados"
                 buttonLabel="Ver mais"
                 data={popular}
+                classNames="pl-8"
               />
             </div>
 

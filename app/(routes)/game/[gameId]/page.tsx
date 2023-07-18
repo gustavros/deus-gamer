@@ -12,17 +12,20 @@ interface GamePageProps {
     gameId: number;
   };
 }
+const url = "https://www.freetogame.com/";
 
 const GamePage = async ({ params }: GamePageProps) => {
   const game = await getGame(params.gameId);
 
-  let mainScreenshot = game.screenshots[0].image;
-  const url = "https://www.freetogame.com/";
+  let mainScreenshot =
+    game.screenshots?.length === 0
+      ? "https://fakeimg.pl/1280x720/121212/ffe20a?text=:O"
+      : game.screenshots![0].image;
 
   function handleScreenshotClick(id: number) {
     console.log("clicou" + id);
 
-    const screenshot = game.screenshots.find((screenshot) => {
+    const screenshot = game.screenshots?.find((screenshot) => {
       return screenshot.id === id;
     });
 
@@ -52,7 +55,7 @@ const GamePage = async ({ params }: GamePageProps) => {
                   />
                 </div>
                 <div className="flex gap-4">
-                  {game.screenshots.map((screenshot) => {
+                  {game.screenshots?.map((screenshot) => {
                     return (
                       <img
                         onClick={() => handleScreenshotClick(screenshot.id)}

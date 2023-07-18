@@ -13,7 +13,7 @@ export interface IGame {
   release_date: Date;
   freetogame_profile_url: string;
   minimum_system_requirements?: MinimumSystemRequirements;
-  screenshots: Screenshot[];
+  screenshots: Screenshot[] | null;
 }
 
 export interface MinimumSystemRequirements {

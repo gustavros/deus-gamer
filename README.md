@@ -21,7 +21,7 @@ Deus Gamer é uma plataforma de jogos que fornece acesso aos melhores jogos grat
 - [x] Página para cada jogo
 - [ ] Favoritar jogos
 - [ ] Filtrar jogos
-- [ ] Buscar jogos
+- [x] Buscar jogos
 - [ ] Autenticação
 - [ ] Página de perfil do usuário
 - [ ] Biblioteca de jogos do usuário
