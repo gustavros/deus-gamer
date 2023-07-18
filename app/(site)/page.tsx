@@ -11,15 +11,10 @@ import { useFetch } from "@/hooks/useFetch";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
-  const { data: releases } = useFetch({
-    params: {
-      "sort-by": "release-date",
-    },
-  });
 
-  const { data: pvp } = useFetch({
+  const { data: social } = useFetch({
     params: {
-      category: "pvp",
+      category: "social",
       "sort-by": "popularity",
     },
   });
@@ -43,6 +38,12 @@ export default function Home() {
     },
   });
 
+  const { data: releases } = useFetch({
+    params: {
+      "sort-by": "release-date",
+    },
+  });
+
   return (
     <>
       {loading ? (
@@ -50,6 +51,7 @@ export default function Home() {
       ) : (
         <main className="flex flex-col items-center gap-20 bg-neutral-900 py-8">
           <div className="flex flex-col justify-center items-center pt-20 w-full">
+            {/* hero */}
             <div>
               <div className="flex gap-10">
                 <Link href={`/game/${games?.map((game) => game.id).at(0)}`}>
@@ -115,7 +117,7 @@ export default function Home() {
 
             <SwiperSlideRoot data={fps} label="Jogos de FPS" />
 
-            <SwiperSlideRoot data={pvp} label="Jogos de PVP" />
+            <SwiperSlideRoot data={social} label="Jogos com interação social" />
           </div>
         </main>
       )}

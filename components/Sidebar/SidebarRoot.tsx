@@ -95,7 +95,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   return (
     <div className="flex h-full">
       {sidebar.isOpen ? (
-        <div className="flex flex-col bg-black w-[280px]">
+        <div className="flex flex-col w-[260px]">
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               <span>
@@ -118,7 +118,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
 
               <Separator
                 orientation="horizontal"
-                className="bg-neutral-700 h-[1px] mx-4 my-8"
+                className="bg-neutral-700 h-[1px] mx-4 my-8 w-[calc(100%-32px)]"
               />
             </div>
 
@@ -134,8 +134,8 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 bg-red-100 w-[100px] transition-all pb-4">
-          <SidebarBox className="flex flex-col  flex-1">
+        <div className="flex flex-col gap-4 bg-neutral-900 w-[100px] transition-all pb-4 ">
+          <SidebarBox className="flex flex-col flex-1 bg-neutral-800">
             <BsArrowBarRight
               onClick={sidebar.onOpen}
               size={23}
@@ -165,7 +165,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
 
             <Separator
               orientation="horizontal"
-              className="bg-neutral-700 h-[1px] mx-4"
+              className="bg-neutral-700 h-[1px] mx-4 my-8 w-[calc(100%-32px)]"
             />
 
             {collections.map((item) => (

@@ -44,7 +44,7 @@ const CategoryPage = () => {
               <Link
                 href={`/game/${game.id}`}
                 key={game.id}
-                className="flex flex-col"
+                className="hover:brightness-125 transition-all flex flex-col"
               >
                 <img
                   className="rounded-lg cursor-pointer"

@@ -20,11 +20,11 @@ Também foi adicionado a [**Prettier**](https://prettier.io/) para aumentar a pr
 - [x] Ver detalhes do jogo
 - [x] Ver lista de jogos
 - [x] Ver lista de jogos por categoria
-- [ ] Temas dark e light
-- [ ] Autenticação
+- [x] Página para cada jogo
 - [ ] Favoritar jogos
 - [ ] Filtrar jogos
 - [ ] Buscar jogos
-- [ ] Página para cada jogo
+- [ ] Autenticação
 - [ ] Página de perfil do usuário
 - [ ] Biblioteca de jogos do usuário
+- [ ] Temas dark e light

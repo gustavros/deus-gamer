@@ -23,19 +23,31 @@ const SortByPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center py-24 bg-neutral-900">
-      <h1 className="text-4xl font-bold text-center text-neutral-100 py-8">
+    <div className="flex flex-col py-24 bg-neutral-900">
+      <h1 className="text-5xl font-regular text-left text-neutral-100 py-8 px-10">
         {sort.sort}
       </h1>
 
       {loading ? (
         <Loading />
       ) : (
-        <div className="grid grid-cols-4 place-items-center gap-4">
+        <div className="grid grid-cols-5 place-items-center gap-8 px-12 ">
           {data?.map((game) => (
-            <Link href={`/game/${game.id}`} key={game.id}>
-              <img src={game.thumbnail} alt={game.title} className="w-96" />
-              <p>{game.title}</p>
+            <Link
+              href={`/game/${game.id}`}
+              key={game.id}
+              className="hover:brightness-125 transition-all flex flex-col"
+            >
+              <img
+                src={game.thumbnail}
+                alt={game.title}
+                className="w-96 rounded"
+              />
+
+              <span className="uppercase text-neutral-500 text-xs pt-2 font-semibold">
+                Jogo base
+              </span>
+              <p className="font-bold">{game.title}</p>
             </Link>
           ))}
         </div>

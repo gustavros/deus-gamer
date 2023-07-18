@@ -1,28 +1,66 @@
-import { useFetch } from "@/hooks/useFetch";
+"use client";
+
 import { Categories } from "@/utils/Categories";
 
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 
-const Navigation = () => {
+import "swiper/css";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import { SwiperSlideHeading } from "@/components/Swiper/SwiperSlideHeading";
+import { BsArrowRightShort } from "react-icons/bs";
+
+const NavigationPage = () => {
+  const swiperRef = useRef<any>(null);
+
+  const handleNext = () => {
+    swiperRef.current.swiper.slideNext();
+  };
+
   return (
     <div className="py-24 bg-neutral-900 h-full">
-      <h1 className="text-4xl">Categorias populares</h1>
-      <div className="flex gap-2 py-2 overflow-auto">
-        {Categories.map((category) => {
-          return (
-            <Link
-              href={`/category/${category.search}`}
-              key={category.search}
-              className="border rounded-lg p-4 hover:bg-[#2a2a2a] transition text-neutral-400 hover:text-white flex items-center px-10 text-center"
-            >
-              <span>{category.label}</span>
-            </Link>
-          );
-        })}
+      <div className="flex flex-col w-[1590px] mx-auto">
+        <div className="flex justify-between py-8">
+          <SwiperSlideHeading>Categorias populares</SwiperSlideHeading>
+          <button
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition"
+            onClick={handleNext}
+          >
+            <BsArrowRightShort size={24} />
+          </button>
+        </div>
+        <Swiper
+          ref={swiperRef}
+          slidesPerView={5}
+          spaceBetween={20}
+          loop={true}
+          className="swiper w-[1590px] mx-auto"
+          slideNextClass="swiper-button-next"
+          slidePrevClass="swiper-button-prev"
+          navigation={true}
+        >
+          {Categories.map((category) => {
+            return (
+              <SwiperSlide key={category.search}>
+                <Link
+                  href={`/category/${category.search}`}
+                  key={category.search}
+                  className="border w-full p-6 flex items-center justify-center hover:bg-neutral-800 transition-all rounded text-center font-bold"
+                >
+                  <span>{category.label}</span>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
+
+      <div className="">
+        <h1>Conteúdo...</h1>
       </div>
     </div>
   );
 };
 
-export default Navigation;
+export default NavigationPage;
