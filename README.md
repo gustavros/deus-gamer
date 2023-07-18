@@ -1,34 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## DEUS GAMER
 
-## Getting Started
+<p align="left">
+Deus Gamer é uma plataforma de jogos que fornece acesso aos melhores jogos gratuitos!
+</p>
 
-First, run the development server:
+<img src="github/preview.png" width="100%" />
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Stacks utilizadas no projeto
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [NextJS](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [shadcn/ui](https://ui.shadcn.com/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Também foi adicionado a [**Prettier**](https://prettier.io/) para aumentar a produtividade e auxiliar a manter um padrão de código.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Funcionalidades
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [x] Ver detalhes do jogo
+- [x] Ver lista de jogos
+- [x] Ver lista de jogos por categoria
+- [ ] Temas dark e light
+- [ ] Autenticação
+- [ ] Favoritar jogos
+- [ ] Filtrar jogos
+- [ ] Buscar jogos
+- [ ] Página para cada jogo
+- [ ] Página de perfil do usuário
+- [ ] Biblioteca de jogos do usuário

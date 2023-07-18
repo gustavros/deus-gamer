@@ -28,7 +28,7 @@ export const ShowcaseItem = ({ className, data }: ShowcaseItemProps) => {
 
               <div className="flex flex-col w-96">
                 <h1 className=" text-white text-xl">{item.title}</h1>
-                <span className="text-amber-500">{item.genre}</span>
+                <span className="text-amber-400">{item.genre}</span>
               </div>
             </Link>
           );

@@ -13,7 +13,7 @@ export const SwiperSlideItem = ({ game }: SwiperItemProps) => {
 
       <div className="flex flex-col pt-2">
         <h1 className="font-bold truncate">{game.title}</h1>
-        <span className="p-1 bg-amber-800 rounded-lg w-fit text-sm">
+        <span className="p-1 bg-amber-400 rounded-lg w-fit text-sm text-neutral-800 font-regular">
           {game.genre}
         </span>
       </div>

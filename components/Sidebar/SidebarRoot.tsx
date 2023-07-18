@@ -24,6 +24,7 @@ import {
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
 import useSidebar from "@/hooks/UseSidebar";
+import { Separator } from "../ui/separator";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -69,24 +70,24 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
         icon: MdDiscount,
         href: "/",
       },
-      {
-        label: "Últimos lançamentos",
-        active: pathname === "/release-date",
-        icon: MdOutlineNewReleases,
-        href: "/sort/release-date",
-      },
-      {
-        label: "Relevantes",
-        active: pathname === "/relevance",
-        icon: BsFire,
-        href: "/sort/relevance",
-      },
-      {
-        label: "Mais populares",
-        active: pathname === "/popular",
-        icon: BsRocketTakeoff,
-        href: "/sort/popularity",
-      },
+      // {
+      //   label: "Últimos lançamentos",
+      //   active: pathname === "/release-date",
+      //   icon: MdOutlineNewReleases,
+      //   href: "/sort/release-date",
+      // },
+      // {
+      //   label: "Relevantes",
+      //   active: pathname === "/relevance",
+      //   icon: BsFire,
+      //   href: "/sort/relevance",
+      // },
+      // {
+      //   label: "Mais populares",
+      //   active: pathname === "/popular",
+      //   icon: BsRocketTakeoff,
+      //   href: "/sort/popularity",
+      // },
     ],
     [pathname]
   );
@@ -115,11 +116,14 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                 <SidebarItem key={item.label} {...item} />
               ))}
 
-              <hr className="border-neutral-800 mx-2" />
+              <Separator
+                orientation="horizontal"
+                className="bg-neutral-700 h-[1px] mx-4 my-8"
+              />
             </div>
 
             <div className="flex flex-col w-[280px] ">
-              <p className="text-xl font-bold pb-4 p-8">
+              <p className="text-xl font-bold pb-4 pl-8">
                 Minha <span className="text-amber-400">coleção</span>
               </p>
 
@@ -130,7 +134,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 bg-red-100 w-[100px] transition-all">
+        <div className="flex flex-col gap-4 bg-red-100 w-[100px] transition-all pb-4">
           <SidebarBox className="flex flex-col  flex-1">
             <BsArrowBarRight
               onClick={sidebar.onOpen}
@@ -159,7 +163,10 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               </TooltipProvider>
             ))}
 
-            <hr className="border-neutral-800 mx-2" />
+            <Separator
+              orientation="horizontal"
+              className="bg-neutral-700 h-[1px] mx-4"
+            />
 
             {collections.map((item) => (
               <TooltipProvider key={item.label}>

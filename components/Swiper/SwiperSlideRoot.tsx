@@ -28,7 +28,7 @@ const SwiperSlideRoot = ({ data, label }: SwiperSlideRootProps) => {
               </SwiperSlide>
             );
           })
-          .slice(0, Math.random() * 200)}
+          .slice(30, Math.random() * 200)}
       </Swiper>
     </div>
   );

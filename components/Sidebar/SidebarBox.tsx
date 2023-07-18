@@ -5,7 +5,6 @@ import { twMerge } from "tailwind-merge";
 interface SidebarBoxProps {
   children: React.ReactNode;
   className?: string;
-
 }
 
 export const SidebarBox = ({ children, className }: SidebarBoxProps) => {
