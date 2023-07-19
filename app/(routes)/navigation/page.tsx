@@ -19,7 +19,7 @@ const NavigationPage = () => {
   };
 
   return (
-    <div className="py-24 bg-neutral-900 h-full">
+    <div className="py-24 bg-neutral-900 h-screen">
       <div className="flex flex-col w-[1590px] mx-auto">
         <div className="flex justify-between py-8">
           <SwiperSlideHeading label="Categorias" handleNext={handleNext} />

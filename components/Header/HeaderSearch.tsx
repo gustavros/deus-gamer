@@ -28,12 +28,12 @@ export const HeaderSearch = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          className="rounded-3xl py-2 pl-10 placeholder:text-neutral-500 bg-neutral-800"
+          className="rounded-3xl py-2 pl-10 placeholder:text-neutral-500 bg-neutral-800 w-full md:w-[400px]"
           placeholder="Busque por jogos"
         />
 
         {search && (
-          <div className="absolute top-12 left-0 w-[500px] bg-neutral-800  rounded">
+          <div className="absolute top-12 left-0 w-[260px] md:w-[400px] bg-neutral-800  rounded">
             <ul className="text-neutral-500 flex flex-col py-8">
               {filteredGames
                 ?.map((item) => (

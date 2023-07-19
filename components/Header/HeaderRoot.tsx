@@ -2,15 +2,23 @@
 
 import React from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
 import { HeaderSearch } from "./HeaderSearch";
 
 import { BsArrowLeftShort } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
-import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Tooltip } from "@radix-ui/react-tooltip";
+
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+import useMenu from "@/hooks/useMenu";
+import { HeaderMenuMobile } from "./HeaderMenuMobile";
 
 export const HeaderRoot = () => {
   const pathname = usePathname();
@@ -29,10 +37,12 @@ export const HeaderRoot = () => {
     },
   ];
 
+  const menu = useMenu();
+
   return (
-    <header className="bg-neutral-900 py-6 px-2 flex justify-between items-center w-full fixed z-10">
-      <div className="flex justify-center items-center">
-        <div className="flex items-center gap-4">
+    <header className="bg-neutral-900 py-6 px-8 flex justify-between items-center w-full fixed z-10">
+      <div className="justify-center items-center flex w-full sm:w-auto">
+        <div className="flex items-center gap-4 w-full justify-between sm:w-auto">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger>
@@ -52,8 +62,17 @@ export const HeaderRoot = () => {
           </TooltipProvider>
 
           <HeaderSearch />
+
+          <AiOutlineMenu
+            size={30}
+            className={`text-neutral-400 rounded-full cursor-pointer flex sm:hidden ${
+              menu.isOpen && "invisible"
+            }`}
+            onClick={menu.onOpen}
+          />
         </div>
-        <div className="px-4 flex gap-4 text-neutral-500 font-medium">
+
+        <div className="px-4 hidden gap-4 text-neutral-500 font-medium sm:flex">
           {routes.map((item) => (
             <Link
               href={item.href}
@@ -64,12 +83,9 @@ export const HeaderRoot = () => {
             </Link>
           ))}
         </div>
-      </div>
 
-      <Avatar className="mr-8">
-        <AvatarImage src="https://github.com/gustavros.png" />
-        <AvatarFallback className="border">GN</AvatarFallback>
-      </Avatar>
+        <HeaderMenuMobile menu={menu} routes={routes} />
+      </div>
     </header>
   );
 };

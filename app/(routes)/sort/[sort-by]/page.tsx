@@ -31,7 +31,7 @@ const SortByPage = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="grid grid-cols-5 place-items-center gap-8 px-12 ">
+        <div className="flex flex-wrap items-center gap-8 px-12 ">
           {data?.map((game) => (
             <Link
               href={`/game/${game.id}`}

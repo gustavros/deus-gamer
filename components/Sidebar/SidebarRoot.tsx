@@ -18,7 +18,7 @@ import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
 
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
-import useSidebar from "./useSidebar";
+import useSidebar from "../../hooks/useSidebar";
 
 import { Separator } from "../ui/separator";
 
@@ -88,7 +88,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
     <div className="flex">
       {sidebar.isOpen ? (
         <div
-          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px]`}
+          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px] sm:hidden`}
         >
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
@@ -128,7 +128,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 bg-neutral-900 w-[100px]  md:w-[80px] 2xl:w-[100px] transition-all pb-4 ">
+        <div className="flex-col gap-4 bg-neutral-900 w-[100px]  md:w-[80px] 2xl:w-[100px] transition-all pb-4 hidden sm:flex">
           <SidebarBox className="flex flex-col flex-1 bg-neutral-800 pt-6 md:pt-0">
             <BsArrowBarRight
               onClick={sidebar.onOpen}

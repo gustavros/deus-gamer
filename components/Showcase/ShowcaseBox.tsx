@@ -21,7 +21,9 @@ export const ShowcaseBox = ({
   return (
     <div className="w-4/5">
       <div className="flex justify-between items-center w-full">
-        <h1 className="text-2xl font-bold">{title}</h1>
+        <span className="text-lg md:text-2xl font-bold text-neutral-100 block">
+          {title}
+        </span>
 
         <Link href={href} className="border p-2 rounded">
           {buttonLabel}
@@ -40,14 +42,16 @@ export const ShowcaseBox = ({
                 <img
                   src={item.thumbnail}
                   alt={item.short_description}
-                  className=" w-56 rounded"
+                  className=" w-36 rounded sm:w-56"
                 />
 
                 <div className="flex flex-col w-96">
-                  <h1 className=" text-white text-md lg:text-xl  break-words">
+                  <h1 className=" text-white text-sm sm:text-base lg:text-xl">
                     {item.title}
                   </h1>
-                  <span className="text-amber-400">{item.genre}</span>
+                  <span className="text-amber-400 text-sm sm:text-sm">
+                    {item.genre}
+                  </span>
                 </div>
               </Link>
             );
