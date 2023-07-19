@@ -22,7 +22,7 @@ const NavigationPage = () => {
     <div className="py-24 bg-neutral-900 h-full">
       <div className="flex flex-col w-[1590px] mx-auto">
         <div className="flex justify-between py-8">
-          <SwiperSlideHeading>Categorias populares</SwiperSlideHeading>
+          <SwiperSlideHeading label="Categorias" handleNext={handleNext} />
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition"
             onClick={handleNext}
