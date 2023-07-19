@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import React, { ReactNode, useEffect, useMemo } from "react";
 
 import { usePathname } from "next/navigation";
 

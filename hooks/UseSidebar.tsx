@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
-interface useSidebarStore {
+interface useSideBarStore {
   isOpen: boolean;
   onOpen: () => void;
   onClose: () => void;
 }
 
-const useSidebar = create<useSidebarStore>((set) => ({
+const useSideBar = create<useSideBarStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
 
-export default useSidebar;
+export default useSideBar;
