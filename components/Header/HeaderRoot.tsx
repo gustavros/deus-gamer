@@ -10,7 +10,7 @@ import { twMerge } from "tailwind-merge";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
 import HeaderSearch from "./HeaderSearch";
-import { useSidebar } from "@/hooks/UseSidebar";
+import { useSidebar } from "@/hooks/useSidebar";
 
 export const HeaderRoot = () => {
   const pathname = usePathname();
