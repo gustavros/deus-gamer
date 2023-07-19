@@ -39,7 +39,7 @@ const CategoryPage = () => {
 
             <p className="text-neutral-400 font-bold text-center">{category.description}</p>
           </div>
-          <div className="flex flex-wrap items-center gap-8 px-12 ">
+          <div className="flex flex-wrap items-center justify-center gap-8 px-12 ">
             {data?.map((game) => (
               <Link
                 href={`/game/${game.id}`}

@@ -43,7 +43,7 @@ const GamePage = async ({ params }: GamePageProps) => {
           </h1>
           {/* <p className="text-zinc-200 mb-4">{game.developer}</p> */}
 
-          <div className="flex justify-between items-start gap-8 mt-4">
+          <div className="flex md:flex-row flex-col-reverse justify-between items-start gap-8 mt-4">
             <div>
               <div className="flex flex-col gap-8">
                 <div>
@@ -61,7 +61,7 @@ const GamePage = async ({ params }: GamePageProps) => {
                         onClick={() => handleScreenshotClick(screenshot.id)}
                         key={screenshot.id}
                         src={screenshot.image}
-                        className="w-48 h-auto rounded shadow-md cursor-pointer"
+                        className="w-24 lg:w-56 h-auto rounded shadow-md cursor-pointer"
                       />
                     );
                   })}
@@ -73,12 +73,12 @@ const GamePage = async ({ params }: GamePageProps) => {
               </div>
             </div>
 
-            <div>
+            <div className="md:w-auto w-full">
               <div>
                 <img
                   src={game.thumbnail}
                   alt={game.short_description}
-                  className="mb-2 rounded shadow-md"
+                  className="mb-2 rounded shadow-md md:w-auto w-full"
                 />
               </div>
 
@@ -174,9 +174,7 @@ const GamePage = async ({ params }: GamePageProps) => {
             </div>
           </div>
 
-          <div className="mt-8"></div>
-
-          <div className="flex mt-8 divide-x-2 divide-zinc-700 gap-8 w-96">
+          <div className="flex mt-8 divide-x-2 divide-zinc-700 gap-8 w-96 ">
             <div>
               <h2 className="text-neutral-400">Gêneros</h2>
 

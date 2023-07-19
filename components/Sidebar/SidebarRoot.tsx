@@ -88,7 +88,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
     <div className="flex">
       {sidebar.isOpen ? (
         <div
-          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px] sm:hidden`}
+          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px]`}
         >
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
