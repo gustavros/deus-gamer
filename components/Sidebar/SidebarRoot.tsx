@@ -18,9 +18,9 @@ import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
 
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
+import useSidebar from "./useSidebar";
 
 import { Separator } from "../ui/separator";
-import useSidebar from "./useSidebar";
 
 interface SidebarRootProps {
   children: ReactNode;
