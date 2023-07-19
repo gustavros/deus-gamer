@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 
-const HeaderSearch = () => {
+export const HeaderSearch = () => {
   const [search, setSearch] = useState("");
 
   const { data: games } = useFetch();
@@ -76,5 +76,3 @@ const HeaderSearch = () => {
     </>
   );
 };
-
-export default HeaderSearch;

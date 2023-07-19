@@ -20,17 +20,17 @@ import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
 
 import { Separator } from "../ui/separator";
-import useSidebar from "@/hooks/useSideBar";
+import useSidebar from "@/hooks/useSidebar";
 
 interface SidebarRootProps {
   children: ReactNode;
 }
 
 export const SidebarRoot = ({ children }: SidebarRootProps) => {
+  const sidebar = useSidebar();
+
   const pathname = usePathname();
   const user = "Gustavo Santana";
-
-  const sidebar = useSidebar();
 
   const collections = useMemo(
     () => [
@@ -66,24 +66,6 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
         icon: MdDiscount,
         href: "/",
       },
-      // {
-      //   label: "Últimos lançamentos",
-      //   active: pathname === "/release-date",
-      //   icon: MdOutlineNewReleases,
-      //   href: "/sort/release-date",
-      // },
-      // {
-      //   label: "Relevantes",
-      //   active: pathname === "/relevance",
-      //   icon: BsFire,
-      //   href: "/sort/relevance",
-      // },
-      // {
-      //   label: "Mais populares",
-      //   active: pathname === "/popular",
-      //   icon: BsRocketTakeoff,
-      //   href: "/sort/popularity",
-      // },
     ],
     [pathname]
   );
