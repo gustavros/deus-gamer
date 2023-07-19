@@ -79,6 +79,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   useEffect(() => {
     window.addEventListener("resize", closeSidebarOnMobile);
 
+    
     return () => {
       window.removeEventListener("resize", closeSidebarOnMobile);
     };
