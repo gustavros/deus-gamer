@@ -10,11 +10,9 @@ import { twMerge } from "tailwind-merge";
 import { TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Tooltip } from "@radix-ui/react-tooltip";
 import HeaderSearch from "./HeaderSearch";
-import { useSidebar } from "@/hooks/useSidebar";
 
 export const HeaderRoot = () => {
   const pathname = usePathname();
-  const sidebar = useSidebar();
   const router = useRouter();
 
   const routes = [
@@ -31,14 +29,7 @@ export const HeaderRoot = () => {
   ];
 
   return (
-    <header
-      className="bg-neutral-900 py-6 px-2 flex justify-between items-center w-full fixed z-10"
-      style={
-        sidebar.isOpen
-          ? { width: "calc(100% - 280px)" }
-          : { width: "calc(100% - 100px)" }
-      }
-    >
+    <header className="bg-neutral-900 py-6 px-2 flex justify-between items-center w-full fixed z-10">
       <div className="flex justify-center items-center">
         <div className="flex items-center gap-4">
           <TooltipProvider>
