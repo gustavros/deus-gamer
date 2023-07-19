@@ -6,8 +6,10 @@ interface useSidebarStore {
   onClose: () => void;
 }
 
-export const useSidebar = create<useSidebarStore>((set) => ({
+const useSidebar = create<useSidebarStore>((set) => ({
   isOpen: false,
   onOpen: () => set({ isOpen: true }),
   onClose: () => set({ isOpen: false }),
 }));
+
+export default useSidebar;
