@@ -18,9 +18,9 @@ import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
 
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
-import useSideBar from "@/hooks/useSideBar";
 
 import { Separator } from "../ui/separator";
+import useSidebar from "@/hooks/useSideBar";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -30,7 +30,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   const pathname = usePathname();
   const user = "Gustavo Santana";
 
-  const sidebar = useSideBar();
+  const sidebar = useSidebar();
 
   const collections = useMemo(
     () => [
