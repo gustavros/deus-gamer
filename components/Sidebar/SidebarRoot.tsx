@@ -20,7 +20,7 @@ import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
 
 import { Separator } from "../ui/separator";
-import useSidebar from "../../hooks/useSidebar";
+import useSidebar from "./useSidebar";
 
 interface SidebarRootProps {
   children: ReactNode;
