@@ -1,18 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { IGameList } from "@/interfaces/IGameList";
 import { SwiperSlideItem } from "./SwiperSlideItem";
 import { SwiperSlideHeading } from "./SwiperSlideHeading";
-import { IGameList } from "@/interfaces/IGameList";
-import { BsArrowRightShort } from "react-icons/bs";
 
-interface SwiperSlideRootProps {
+interface SwiperSlideProps {
   data: IGameList[] | null;
   label: string;
 }
 
-const SwiperSlideRoot = ({ data, label }: SwiperSlideRootProps) => {
+export const SwiperSlideRoot = ({ data, label }: SwiperSlideProps) => {
   const swiperRef = useRef<any>(null);
 
   const handleNext = () => {
@@ -20,42 +19,44 @@ const SwiperSlideRoot = ({ data, label }: SwiperSlideRootProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 py-12">
-      <div className="flex justify-between w-full">
-        <SwiperSlideHeading>{label}</SwiperSlideHeading>
+    <div className="w-[calc(100%-4rem)] 2xl:w-[calc(100%-10rem)] md:w-[calc(100%-8rem)]  sm:w-[calc(100%-4rem)] py-8">
+      <SwiperSlideHeading handleNext={handleNext} label={label} />
 
-        <button
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-neutral-800 hover:bg-neutral-700 transition"
-          onClick={handleNext}
-        >
-          <BsArrowRightShort size={24} />
-        </button>
-      </div>
       <Swiper
         ref={swiperRef}
         slidesPerView={5}
         spaceBetween={20}
         loop={true}
-        className="swiper w-[1590px] mx-auto "
+        className="swiper"
         slideNextClass="swiper-button-next"
         slidePrevClass="swiper-button-prev"
         navigation={true}
-        autoplay={{
-          delay: 1000,
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          1024: {
+            slidesPerView: 4,
+          },
+          1280: {
+            slidesPerView: 5,
+          },
         }}
       >
-        {data
-          ?.map((game) => {
-            return (
-              <SwiperSlide key={game.id} className="mb-10">
-                <SwiperSlideItem game={game} />
-              </SwiperSlide>
-            );
-          })
-          .slice(0, data.length)}
+        {data?.map((game) => {
+          return (
+            <SwiperSlide key={game.id}>
+              <SwiperSlideItem game={game} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
 };
-
-export default SwiperSlideRoot;

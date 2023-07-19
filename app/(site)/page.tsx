@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ShowcaseBox } from "@/components/Showcase/ShowcaseBox";
-import SwiperSlideRoot from "@/components/Swiper/SwiperSlideRoot";
 import Loading from "@/components/Loading";
 
 import { useFetch } from "@/hooks/useFetch";
-import { Separator } from "@/components/ui/separator";
+
+import { SwiperSlideRoot } from "@/components/Swiper/SwiperSlideRoot";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
@@ -50,16 +50,16 @@ export default function Home() {
       {loading ? (
         <Loading />
       ) : (
-        <main className="flex flex-col items-center gap-20 bg-neutral-900 py-8">
+        <main className="flex flex-col items-center gap-20 bg-neutral-900 py-4 2xl:py-8">
           <div className="flex flex-col justify-center items-center pt-20 w-full">
             {/* hero */}
-            <div className="flex flex-col 2xl:flex-row px-8 2xl:px-4 gap-8">
+            <div className="flex flex-col 2xl:flex-row gap-8 px-8">
               <Link href={`/game/${games?.map((game) => game.id).at(0)}`}>
                 <Image
                   src="https://i.ytimg.com/vi/PWe0pC2akpo/maxresdefault.jpg"
                   alt="Banner"
                   className="rounded-lg cursor-pointer "
-                  width={1200}
+                  width={880}
                   height={720}
                 />
               </Link>
@@ -85,40 +85,37 @@ export default function Home() {
                       </Link>
                     </div>
                   ))
-                  .slice(1, 8)}
+                  .slice(1, 6)}
               </div>
             </div>
 
-            <SwiperSlideRoot data={games} label="Outros jogos" />
+            <SwiperSlideRoot
+              label="Jogos com interações sociais"
+              data={social}
+            />
 
-            {/* <div className="grid grid-cols-3 place-items-center gap-8 justify-around m-10 px-8 divide-x divide-neutral-700">
+            <div className="grid md:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-8 place-items-center m-10 sm:px-0 w-full">
               <ShowcaseBox
                 href="/sort/relevance"
                 title="Mais relevantes"
                 buttonLabel="Ver mais"
                 data={relevance}
-                classNames="pr-8"
               />
-
               <ShowcaseBox
                 href="/sort/release-date"
                 title="Jogos lançamentos"
                 buttonLabel="Ver mais"
                 data={releases}
-                classNames="pl-8"
               />
-
               <ShowcaseBox
                 href="/sort/popularity"
                 title="Mais jogados"
                 buttonLabel="Ver mais"
                 data={popular}
-                classNames="pl-8"
               />
-            </div> */}
+            </div>
 
-            <SwiperSlideRoot data={social} label="Jogos com interação social" />
-            <SwiperSlideRoot data={fps} label="Jogos de FPS" />
+            <SwiperSlideRoot label="Jogos de FPS mais jogado" data={fps} />
           </div>
         </main>
       )}

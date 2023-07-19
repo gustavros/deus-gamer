@@ -1,6 +1,12 @@
 "use client";
 
-import React, { ReactNode, useCallback, useMemo, useState } from "react";
+import React, {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { usePathname } from "next/navigation";
 
@@ -13,18 +19,14 @@ import {
 
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoMdDoneAll } from "react-icons/io";
-import { MdGamepad, MdDiscount, MdOutlineNewReleases } from "react-icons/md";
-import {
-  BsArrowBarRight,
-  BsRocketTakeoff,
-  BsFire,
-  BsArrowBarLeft,
-} from "react-icons/bs";
+import { MdGamepad, MdDiscount } from "react-icons/md";
+import { BsArrowBarRight, BsArrowBarLeft } from "react-icons/bs";
 
 import { SidebarBox } from "./SidebarBox";
 import { SidebarItem } from "./SidebarItem";
-import useSidebar from "@/hooks/UseSidebar";
+
 import { Separator } from "../ui/separator";
+import { useSidebar } from "@/hooks/useSidebar";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -92,10 +94,26 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
     [pathname]
   );
 
+  function closeSidebarOnMobile() {
+    if (window.innerWidth < 768) {
+      sidebar.onClose();
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", closeSidebarOnMobile);
+
+    return () => {
+      window.removeEventListener("resize", closeSidebarOnMobile);
+    };
+  }, []);
+
   return (
-    <div className="flex h-full">
+    <div className="flex">
       {sidebar.isOpen ? (
-        <div className="flex flex-col w-[260px]">
+        <div
+          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px]`}
+        >
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               <span>
@@ -134,12 +152,12 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 bg-neutral-900 w-[100px] transition-all pb-4 ">
-          <SidebarBox className="flex flex-col flex-1 bg-neutral-800">
+        <div className="flex flex-col gap-4 bg-neutral-900 w-[100px]  md:w-[80px] 2xl:w-[100px] transition-all pb-4 ">
+          <SidebarBox className="flex flex-col flex-1 bg-neutral-800 pt-6 md:pt-0">
             <BsArrowBarRight
               onClick={sidebar.onOpen}
               size={23}
-              className="text-neutral-400 hover:text-white cursor-pointer transition-all w-full my-8"
+              className="text-neutral-400 hover:text-white cursor-pointer transition-all w-full my-8 hidden md:flex"
             />
 
             {routes.map((item) => (
@@ -150,7 +168,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                       active={item.active}
                       icon={item.icon}
                       href={item.href}
-                      className="p-0 flex flex-col items-center justify-center h-12"
+                      className="p-0 flex flex-col items-center justify-center h-12 sm:h-10"
                     />
                   </TooltipTrigger>
                   <TooltipContent
@@ -187,6 +205,11 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                 </Tooltip>
               </TooltipProvider>
             ))}
+
+            <Separator
+              orientation="horizontal"
+              className="bg-neutral-700 h-[1px] mx-4 my-8 w-[calc(100%-32px)]"
+            />
           </SidebarBox>
         </div>
       )}
