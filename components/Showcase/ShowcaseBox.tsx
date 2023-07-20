@@ -37,7 +37,7 @@ export const ShowcaseBox = ({
               <Link
                 key={item.id}
                 href={`game/${item.id}`}
-                className="flex flex-row gap-4 h-auto text-md font-medium cursor-pointer hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 rounded-lg py-2 w-fit"
+                className="flex flex-row gap-4 h-auto text-md font-medium cursor-pointer hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 rounded-lg py-2 "
               >
                 <img
                   src={item.thumbnail}
