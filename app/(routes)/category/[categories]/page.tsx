@@ -34,10 +34,12 @@ const CategoryPage = () => {
         <div className="bg-neutral-900 py-24 flex flex-col items-center gap-8">
           <div className="flex flex-col items-center">
             <h1 className="text-5xl font-regular text-left text-neutral-100 py-8 px-10">
-              {category.category} 
+              {category.category}
             </h1>
 
-            <p className="text-neutral-400 font-bold text-center">{category.description}</p>
+            <p className="text-neutral-400 font-bold text-center">
+              {category.description}
+            </p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-8 px-12 ">
             {data?.map((game) => (

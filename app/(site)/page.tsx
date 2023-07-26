@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { ShowcaseBox } from "@/components/Showcase/ShowcaseBox";
-import Loading from "@/components/Loading";
 
 import { useFetch } from "@/hooks/useFetch";
 
 import { SwiperSlideRoot } from "@/components/Swiper/SwiperSlideRoot";
+import Loading from "@/components/Loading";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
