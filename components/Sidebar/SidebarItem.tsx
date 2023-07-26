@@ -10,6 +10,7 @@ interface SidebarItemProps {
   active?: boolean;
   href: string;
   className?: string;
+  disabled?: boolean;
 }
 
 export const SidebarItem = ({
@@ -18,12 +19,14 @@ export const SidebarItem = ({
   active,
   href,
   className,
+  disabled,
 }: SidebarItemProps) => {
   return (
     <Link
-      href={href}
+      href={disabled ? "#" : href}
       className={twMerge(
-        `flex flex-row h-auto items-center gap-x-7 text-md font-medium cursor-pointer hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 p-3 px-4 mx-4 mb-1 rounded-lg`,
+        `${disabled && "opacity-50 cursor-not-allowed "}
+        flex flex-row h-auto items-center gap-x-7 text-md font-medium  hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 p-3 px-4 mx-4 mb-1 rounded-lg`,
         active && "text-white bg-[#373737]",
         className
       )}

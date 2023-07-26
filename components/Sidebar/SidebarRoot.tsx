@@ -116,13 +116,13 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               />
             </div>
 
-            <div className="flex flex-col w-[280px] ">
+            <div className="flex flex-col w-[280px]">
               <p className="text-xl font-bold pb-4 pl-8">
                 Minha <span className="text-amber-400">coleção</span>
               </p>
 
               {collections.map((item) => (
-                <SidebarItem key={item.label} {...item} />
+                <SidebarItem disabled key={item.label} {...item} />
               ))}
             </div>
           </SidebarBox>
@@ -167,6 +167,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                 <Tooltip>
                   <TooltipTrigger>
                     <SidebarItem
+                      disabled
                       href={item.href}
                       icon={item.icon}
                       className="mt-1 p-0 flex flex-col items-center justify-center h-12"
