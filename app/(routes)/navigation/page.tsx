@@ -13,6 +13,14 @@ import axios from "axios";
 import { IGameList } from "@/interfaces/IGameList";
 import Loading from "@/components/Loading";
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 const url = "https://free-to-play-games-database.p.rapidapi.com/api/games";
 
 const NavigationPage = () => {
@@ -101,17 +109,22 @@ const NavigationPage = () => {
           <div className="flex py-16">
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
-                <h2 className="text-lg font-semibold">Mostrar:</h2>
-
-                <select
-                  onChange={(e) => setDataSelected(e.target.value)}
-                  className="bg-neutral-800 text-white p-2 rounded"
+                <Select
+                  onValueChange={(e) => {
+                    setDataSelected(e);
+                  }}
                 >
-                  <option value="release-date">Lançamentos</option>
-                  <option value="alphabetical">Alfabética</option>
-                  <option value="popularity">Popularidade</option>
-                  <option value="relevance">Relevância</option>
-                </select>
+                  <h2>Mostrar:</h2>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Categoria" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-neutral-900">
+                    <SelectItem value="release-date">Lançamentos</SelectItem>
+                    <SelectItem value="alphabetical">Alfabética</SelectItem>
+                    <SelectItem value="popularity">Popularidade</SelectItem>
+                    <SelectItem value="relevance">Relevância</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="flex gap-8">
