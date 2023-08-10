@@ -9,6 +9,7 @@ interface AuthState {
   user: User | null;
   loading: boolean;
   signInWithGoogle: () => void;
+  signInWithGithub: () => void;
   signOut: () => void;
   loadStorageData: () => void;
 }
@@ -16,6 +17,10 @@ interface AuthState {
 const useAuth = create<AuthState>((set) => ({
   user: null,
   loading: true,
+
+  signInWithGithub: () => {
+    toast.error("Ainda não implementado.");
+  },
 
   signInWithGoogle: () => {
     signInWithPopup(auth, provider)

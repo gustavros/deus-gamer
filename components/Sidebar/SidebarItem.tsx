@@ -26,7 +26,7 @@ export const SidebarItem = ({
       href={disabled ? "#" : href}
       className={twMerge(
         `${disabled && "opacity-50 cursor-not-allowed "}
-        flex flex-row h-auto items-center gap-x-7 text-md font-medium  hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 p-3 px-4 mx-4 mb-1 rounded-lg`,
+        flex flex-row h-auto items-center gap-x-7 text-md font-medium hover:text-white hover:bg-[#2a2a2a] transition text-neutral-400 p-3 px-4 mx-4 mb-1 rounded-lg w-48`,
         active && "text-white bg-[#373737]",
         className
       )}

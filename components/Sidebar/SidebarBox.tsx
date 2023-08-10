@@ -10,7 +10,10 @@ interface SidebarBoxProps {
 export const SidebarBox = ({ children, className }: SidebarBoxProps) => {
   return (
     <div
-      className={twMerge(`bg-neutral-900 h-fit w-full`, className)}
+      className={twMerge(
+        `bg-neutral-900 h-fit w-full border-r border-neutral-800`,
+        className
+      )}
     >
       {children}
     </div>

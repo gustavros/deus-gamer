@@ -17,6 +17,7 @@ import useAuth from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import { Button } from "../ui/button";
 
 interface HeaderMenuMobileProps {
   menu: {
@@ -67,7 +68,7 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
             ))}
 
             {user ? (
-              <DropdownMenu>
+              <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
                     <AvatarImage src={user.photoURL ? user.photoURL : avatar} />
@@ -76,7 +77,12 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-46" align="center" forceMount>
+
+                <DropdownMenuContent
+                  className="w-46 bg-neutral-900"
+                  align="center"
+                  forceMount
+                >
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
@@ -88,15 +94,14 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>Perfil</DropdownMenuItem>
-                    <DropdownMenuItem>Coleção</DropdownMenuItem>
-                  </DropdownMenuGroup>
 
-                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Perfil</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/collection">Coleção</Link>
+                  </DropdownMenuItem>
 
                   <DropdownMenuItem
-                    className="cursor-pointer hover:bg-neutral-800 transition"
+                    className="text-red-400 cursor-pointer"
                     onClick={signOut}
                   >
                     Sair
@@ -105,19 +110,16 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
               </DropdownMenu>
             ) : (
               <div className="flex flex-col gap-4 pt-8">
-                <button
-                  onClick={loginModal.onOpen}
-                  className="text-neutral-500 font-medium hover:text-white transition"
-                >
+                <Button variant="outline" onClick={loginModal.onOpen}>
                   Entrar
-                </button>
+                </Button>
 
-                <button
+                <Button
+                  className="text-neutral-900 bg-amber-400 hover:bg-amber-500 transition-all"
                   onClick={registerModal.onOpen}
-                  className="bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition border-2"
                 >
-                  Registrar
-                </button>
+                  Registre-se
+                </Button>
               </div>
             )}
           </div>

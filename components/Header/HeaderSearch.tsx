@@ -2,6 +2,7 @@ import { useFetch } from "@/hooks/useFetch";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
+import { Input } from "../ui/input";
 
 export const HeaderSearch = () => {
   const [search, setSearch] = useState("");
@@ -23,7 +24,7 @@ export const HeaderSearch = () => {
           size={18}
           className="text-neutral-400 absolute top-3 left-3"
         />
-        <input
+        <Input
           onBlur={closeInputOnBlur}
           value={search}
           onChange={(e) => setSearch(e.target.value)}

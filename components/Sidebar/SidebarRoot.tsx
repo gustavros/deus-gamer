@@ -88,9 +88,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   return (
     <div className="flex">
       {sidebar.isOpen ? (
-        <div
-          className={`flex flex-col w-[220px] sm:w-[200px] md:w-[280px] 2xl:w-[260px]`}
-        >
+        <div className={`flex flex-col w-[230px] 2xl:w-[250px]`}>
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
               {user ? (
@@ -134,14 +132,19 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
               </p>
 
               {collections.map((item) => (
-                <SidebarItem disabled key={item.label} {...item} />
+                <SidebarItem
+                  icon={item.icon}
+                  label={item.label}
+                  key={item.label}
+                  href={item.href}
+                />
               ))}
             </div>
           </SidebarBox>
         </div>
       ) : (
-        <div className="flex-col gap-4 bg-neutral-900 w-[100px]  md:w-[80px] 2xl:w-[100px] transition-all pb-4 hidden sm:flex">
-          <SidebarBox className="flex flex-col flex-1 bg-neutral-800 pt-6 md:pt-0">
+        <div className="flex-col gap-4 bg-neutral-900 w-[100px] transition-all pb-4 hidden sm:flex">
+          <SidebarBox className="flex flex-col flex-1 bg-neutral-900 border-r border-neutral-800 pt-6 md:pt-0">
             <BsArrowBarRight
               onClick={sidebar.onOpen}
               size={23}
@@ -156,7 +159,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                       active={item.active}
                       icon={item.icon}
                       href={item.href}
-                      className="p-0 flex flex-col items-center justify-center h-12 sm:h-10"
+                      className="p-0 flex flex-col items-center justify-center w-auto h-12 sm:h-10"
                     />
                   </TooltipTrigger>
                   <TooltipContent
@@ -179,10 +182,9 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                 <Tooltip>
                   <TooltipTrigger>
                     <SidebarItem
-                      disabled
                       href={item.href}
                       icon={item.icon}
-                      className="mt-1 p-0 flex flex-col items-center justify-center h-12"
+                      className="mt-1 p-0 flex flex-col items-center justify-center h-12 w-auto"
                     />
                   </TooltipTrigger>
                   <TooltipContent

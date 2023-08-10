@@ -15,20 +15,18 @@ import { HeaderMenuMobile } from "./HeaderMenuMobile";
 import useSidebar from "@/hooks/useSidebar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import useAuthStore from "@/hooks/useAuth";
-import { signOut } from "firebase/auth";
-import useAuth from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import useAuth from "@/hooks/useAuth";
+import { Button } from "../ui/button";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export const HeaderRoot = () => {
   const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
@@ -42,7 +40,7 @@ export const HeaderRoot = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading } = useAuth();
 
   const routes = [
     {
@@ -59,9 +57,7 @@ export const HeaderRoot = () => {
 
   return (
     <header
-      className={`bg-neutral-900 py-6 px-8 flex justify-between items-center w-full  z-10 border-b border-neutral-800
-       
-      `}
+      className={`bg-neutral-900 py-6 px-8  justify-between items-center w-full z-10 border-b border-neutral-800`}
     >
       <div className="justify-between items-center flex w-full">
         <div className="flex items-center gap-4 w-full justify-between sm:w-auto">
@@ -90,7 +86,7 @@ export const HeaderRoot = () => {
 
         {user ? (
           <div className="hidden sm:flex">
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage src={user.photoURL ? user.photoURL : avatar} />
@@ -101,7 +97,7 @@ export const HeaderRoot = () => {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent
-                className="w-56 bg-neutral-900"
+                className="w-46 bg-neutral-900"
                 align="end"
                 forceMount
               >
@@ -116,32 +112,33 @@ export const HeaderRoot = () => {
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
-                  <DropdownMenuItem>Perfil</DropdownMenuItem>
-                  <DropdownMenuItem>Coleção</DropdownMenuItem>
-                </DropdownMenuGroup>
 
-                <DropdownMenuSeparator />
+                <DropdownMenuItem>Perfil</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/collection">Coleção</Link>
+                </DropdownMenuItem>
 
-                <DropdownMenuItem onClick={signOut}>Sair</DropdownMenuItem>
+                <DropdownMenuItem
+                  className="text-red-400 cursor-pointer"
+                  onClick={signOut}
+                >
+                  Sair
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
         ) : (
-          <div className="gap-4 hidden sm:flex">
-            <button
-              onClick={loginModal.onOpen}
-              className="text-neutral-500 font-medium hover:text-white transition"
-            >
+          <div className="gap-4 hidden sm:flex items-center">
+            <Button variant="outline" onClick={loginModal.onOpen}>
               Entrar
-            </button>
+            </Button>
 
-            <button
+            <Button
+              className="text-neutral-900 bg-amber-400 hover:bg-amber-500 transition-all"
               onClick={registerModal.onOpen}
-              className="bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition border-2"
             >
-              Registrar
-            </button>
+              Registre-se
+            </Button>
           </div>
         )}
 
