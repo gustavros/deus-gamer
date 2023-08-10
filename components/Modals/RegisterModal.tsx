@@ -73,7 +73,6 @@ export const RegisterModal = () => {
       disabled={isLoading}
       isOpen={registerModal.isOpen}
       title="Register"
-      actionLabel="Continue"
       onClose={registerModal.onClose}
       body={bodyContent}
     />
