@@ -10,6 +10,12 @@ body,
   color-scheme: dark;
 }
 
+body {
+  width: 100vw;
+  overflow-x: hidden;
+  padding-right: calc(0 - var(--removed-body-scroll-bar-size)) !important;
+}
+
 .swiper .swiper-pagination-bullet {
   @apply bg-amber-700;
 }

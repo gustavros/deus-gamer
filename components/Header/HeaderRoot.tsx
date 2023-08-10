@@ -6,23 +6,43 @@ import Link from "next/link";
 
 import { HeaderSearch } from "./HeaderSearch";
 
-import { BsArrowLeftShort } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
 
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "../ui/tooltip";
 import useMenu from "@/hooks/useMenu";
 import { HeaderMenuMobile } from "./HeaderMenuMobile";
+import useSidebar from "@/hooks/useSidebar";
+import useLoginModal from "@/hooks/useLoginModal";
+import useRegisterModal from "@/hooks/useRegisterModal";
+import useAuthStore from "@/hooks/useAuth";
+import { signOut } from "firebase/auth";
+import useAuth from "@/hooks/useAuth";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 export const HeaderRoot = () => {
+  const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
+
   const pathname = usePathname();
   const router = useRouter();
+
+  const sidebar = useSidebar();
+  const menu = useMenu();
+
+  const loginModal = useLoginModal();
+  const registerModal = useRegisterModal();
+
+  const { user, signOut } = useAuth();
 
   const routes = [
     {
@@ -37,30 +57,14 @@ export const HeaderRoot = () => {
     },
   ];
 
-  const menu = useMenu();
-
   return (
-    <header className="bg-neutral-900 py-6 px-8 flex justify-between items-center w-full fixed z-10">
-      <div className="justify-center items-center flex w-full sm:w-auto">
+    <header
+      className={`bg-neutral-900 py-6 px-8 flex justify-between items-center w-full  z-10 border-b border-neutral-800
+       
+      `}
+    >
+      <div className="justify-between items-center flex w-full">
         <div className="flex items-center gap-4 w-full justify-between sm:w-auto">
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger>
-                <BsArrowLeftShort
-                  size={30}
-                  className="text-neutral-400 bg-neutral-800 rounded-full p-1 cursor-pointer"
-                  onClick={() => router.back()}
-                />
-              </TooltipTrigger>
-              <TooltipContent
-                side="bottom"
-                className="border-neutral-800 bg-neutral-900 rounded"
-              >
-                <span className="text-sm">Voltar</span>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
           <HeaderSearch />
 
           <AiOutlineMenu
@@ -70,19 +74,76 @@ export const HeaderRoot = () => {
             }`}
             onClick={menu.onOpen}
           />
+
+          <div className="px-4 hidden gap-4 text-neutral-500 font-medium sm:flex ">
+            {routes.map((item) => (
+              <Link
+                href={item.href}
+                key={item.label}
+                className={twMerge(``, item.active && "text-white")}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div className="px-4 hidden gap-4 text-neutral-500 font-medium sm:flex">
-          {routes.map((item) => (
-            <Link
-              href={item.href}
-              key={item.label}
-              className={twMerge(``, item.active && "text-white")}
+        {user ? (
+          <div className="hidden sm:flex">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Avatar className="cursor-pointer">
+                  <AvatarImage src={user.photoURL ? user.photoURL : avatar} />
+                  <AvatarFallback>
+                    {user.displayName?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent
+                className="w-56 bg-neutral-900"
+                align="end"
+                forceMount
+              >
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">
+                      {user.displayName}
+                    </p>
+                    <p className="text-xs leading-none text-muted-foreground">
+                      {user.email}
+                    </p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem>Perfil</DropdownMenuItem>
+                  <DropdownMenuItem>Coleção</DropdownMenuItem>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator />
+
+                <DropdownMenuItem onClick={signOut}>Sair</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <div className="gap-4 hidden sm:flex">
+            <button
+              onClick={loginModal.onOpen}
+              className="text-neutral-500 font-medium hover:text-white transition"
             >
-              {item.label}
-            </Link>
-          ))}
-        </div>
+              Entrar
+            </button>
+
+            <button
+              onClick={registerModal.onOpen}
+              className="bg-primary-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-primary-600 transition border-2"
+            >
+              Registrar
+            </button>
+          </div>
+        )}
 
         <HeaderMenuMobile menu={menu} routes={routes} />
       </div>

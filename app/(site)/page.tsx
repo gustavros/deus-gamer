@@ -9,9 +9,19 @@ import { useFetch } from "@/hooks/useFetch";
 
 import { SwiperSlideRoot } from "@/components/Swiper/SwiperSlideRoot";
 import Loading from "@/components/Loading";
+import useAuth from "@/hooks/useAuth";
+import { useEffect } from "react";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
+
+  const { loadStorageData } = useAuth();
+
+  useEffect(() => {
+    loadStorageData();
+
+    return () => {};
+  }, []);
 
   const { data: social } = useFetch({
     params: {

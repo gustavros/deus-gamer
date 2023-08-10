@@ -2,6 +2,9 @@ import { SidebarRoot } from "@/components/Sidebar/SidebarRoot";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { HeaderRoot } from "@/components/Header/HeaderRoot";
+import { LoginModal } from "@/components/Modals/LoginModal";
+import { RegisterModal } from "@/components/Modals/RegisterModal";
+import { ToasterProvider } from "./providers/ToasterProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +22,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
+        <ToasterProvider />
+        <RegisterModal />
+        <LoginModal />
         <SidebarRoot>
           <HeaderRoot />
           {children}

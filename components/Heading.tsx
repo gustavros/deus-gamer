@@ -2,15 +2,15 @@ import React from "react";
 
 interface HeadingProps {
   title: string;
-  description: string;
+  description?: string;
 }
 
 const Heading = ({ title, description }: HeadingProps) => {
   return (
     <div>
-      <h1>{title}</h1>
+      <h1 className="text-2xl font-bold">{title}</h1>
 
-      <p>{description}</p>
+      <div className="text-neutral-500 font-light">{description}</div>
     </div>
   );
 };

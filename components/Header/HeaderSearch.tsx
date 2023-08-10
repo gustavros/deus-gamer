@@ -28,7 +28,7 @@ export const HeaderSearch = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           type="text"
-          className="rounded-3xl py-2 pl-10 placeholder:text-neutral-500 bg-neutral-800 w-full md:w-[400px]"
+          className="rounded-3xl py-2 pl-10 placeholder:text-neutral-500 bg-neutral-800 w-full md:w-[200px]"
           placeholder="Busque por jogos"
         />
 

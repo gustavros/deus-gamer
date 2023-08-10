@@ -9,7 +9,6 @@ import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { SwiperSlideHeading } from "@/components/Swiper/SwiperSlideHeading";
-import { useFetch } from "@/hooks/useFetch";
 import axios from "axios";
 import { IGameList } from "@/interfaces/IGameList";
 import Loading from "@/components/Loading";
