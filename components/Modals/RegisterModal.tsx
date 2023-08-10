@@ -1,78 +1,72 @@
 "use client";
 
-import { AiFillGithub } from "react-icons/ai";
-import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
-import { useCallback, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useCallback } from "react";
 
-import { Button } from "../Button";
 import { Modal } from "./Modal";
+import { Button } from "../Button";
+import Heading from "../Heading";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useAuth from "@/hooks/useAuth";
 
 export const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { signInWithGoogle, loading } = useAuth();
+
+  console.log(`loading: ${loading}`);
 
   const toggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
   }, [loginModal, registerModal]);
 
-  function handleSubmit() {
-    setIsLoading(true);
-  }
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading title="Registre-se agora mesmo!" />
 
-  const bodyContent = <div className="flex flex-col gap-4">nada</div>;
+      <div className="flex flex-col gap-3 mt-3">
+        <hr />
+        <Button
+          outline
+          label="Cadastrar com Google"
+          icon={FcGoogle}
+          onClick={() => {
+            signInWithGoogle();
 
-  const footerContent = (
-    <div className="flex flex-col gap-4 mt-3">
-      <hr />
-      <Button
-        outline
-        label="Continue with Google"
-        icon={FcGoogle}
-        onClick={() => signIn("google")}
-      />
-      <Button
-        outline
-        label="Continue with Github"
-        icon={AiFillGithub}
-        onClick={() => signIn("github")}
-      />
-      <div
-        className="
-          text-neutral-500 
-          text-center 
-          mt-4 
-          font-light
-        "
-      >
-        <p>
-          Already have an account?
-          <span
-            onClick={toggle}
-            className="
-              text-neutral-800
-              cursor-pointer 
-              hover:underline
-            "
-          >
-            {" "}
-            Log in
-          </span>
-        </p>
+            registerModal.onClose();
+          }}
+        />
+
+        <div
+          className="
+        text-neutral-500
+        text-center
+        mt-4
+        font-light
+      "
+        >
+          <div className=" justify-center flex flex-row items-center gap-2">
+            <div className="">Já tem uma conta?</div>
+            <div
+              onClick={toggle}
+              className="text-primary-800 cursor-pointer hover:underline"
+            >
+              Faça login
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 
   return (
     <Modal
-      disabled={isLoading}
+      disabled={loading}
       isOpen={registerModal.isOpen}
-      title="Register"
+      title="Registre-se"
       onClose={registerModal.onClose}
       body={bodyContent}
     />
