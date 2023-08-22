@@ -16,7 +16,6 @@ import useSidebar from "@/hooks/useSidebar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import useAuth from "@/hooks/useAuth";
 import { Button } from "../ui/button";
 
 import {
@@ -27,6 +26,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axios from "axios";
+import useAuthentication from "@/hooks/useAuthentication";
 
 export const HeaderRoot = () => {
   const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
@@ -40,7 +41,10 @@ export const HeaderRoot = () => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const { user, signOut, loading } = useAuth();
+  const { user, logout } = useAuthentication();
+
+  if (!user) {
+  }
 
   const routes = [
     {
@@ -85,59 +89,42 @@ export const HeaderRoot = () => {
         </div>
 
         {user ? (
-          <div className="hidden sm:flex">
-            <DropdownMenu modal={false}>
-              <DropdownMenuTrigger asChild>
-                <Avatar className="cursor-pointer">
-                  <AvatarImage src={user.photoURL ? user.photoURL : avatar} />
-                  <AvatarFallback>
-                    {user.displayName?.charAt(0).toUpperCase()}
-                  </AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-
-              <DropdownMenuContent
-                className="w-46 bg-neutral-900"
-                align="end"
-                forceMount
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild className="cursor-pointer">
+              <p className="text-neutral-600">({user.email})</p>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56 bg-neutral-800">
+              <DropdownMenuLabel>{user.name || user.email}</DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-neutral-400" />
+              <DropdownMenuItem>
+                <Link href="/favorites">Favoritos</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="text-red-400 cursor-pointer"
+                onClick={() => {
+                  logout();
+                  router.push("/");
+                }}
               >
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {user.displayName}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem>Perfil</DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Link href="/collection">Coleção</Link>
-                </DropdownMenuItem>
-
-                <DropdownMenuItem
-                  className="text-red-400 cursor-pointer"
-                  onClick={signOut}
-                >
-                  Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+                Sair
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         ) : (
-          <div className="gap-4 hidden sm:flex items-center">
-            <Button variant="outline" onClick={loginModal.onOpen}>
-              Entrar
-            </Button>
-
+          <div className="flex gap-2 items-center">
             <Button
-              className="text-neutral-900 bg-amber-400 hover:bg-amber-500 transition-all"
-              onClick={registerModal.onOpen}
+              onClick={loginModal.onOpen}
+              variant="outline"
+              className="text-neutral-100 hover:text-white"
             >
-              Registre-se
+              entrar
+            </Button>
+            <Button
+              onClick={registerModal.onOpen}
+              variant="default"
+              className="text-neutral-900 hover:text-white bg-amber-400"
+            >
+              cadastrar
             </Button>
           </div>
         )}

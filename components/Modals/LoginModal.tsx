@@ -1,73 +1,128 @@
 "use client";
 
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
+import Cookies from "universal-cookie";
 
 import { Modal } from "./Modal";
 
-import { useRouter } from "next/navigation";
+import { z } from "zod";
+import axios from "axios";
 import Heading from "../Heading";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import useAuth from "@/hooks/useAuth";
-import { toast } from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-hot-toast";
+import { Input } from "../ui/input";
+
+import { loginSchema } from "@/schemas/loginSchema";
+import useAuthentication from "@/hooks/useAuthentication";
+
+type loginSchema = z.infer<typeof loginSchema>;
+const cookies = new Cookies();
 
 export const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
-  const { signInWithGoogle, signInWithGithub, loading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const { login } = useAuthentication();
 
-  console.log(`loading: ${loading}`);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<loginSchema>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit: SubmitHandler<loginSchema> = (data) => {
+    setIsLoading(true);
+
+    axios
+      .post("/api/auth/login", data)
+      .then((res) => {
+        toast.success("Login realizado com sucesso!");
+
+        login(res.data.token);
+
+        loginModal.onClose();
+      })
+      .catch((error) => {
+        toast.error(error.response.data.error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   const toggle = useCallback(() => {
-    loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal]);
+    loginModal.onClose();
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
-      <Heading center title="Faça login com suas redes!" />
+    <div className="flex flex-col gap-4 ">
+      <Heading center title="Entre na sua conta" />
 
       <div className="flex flex-col items-center gap-3 mt-3">
-        <Button
-          className="hover:bg-neutral-800 flex gap-4"
-          variant={"outline"}
-          onClick={() => {
-            signInWithGoogle();
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-4">
+            <label htmlFor="email" className="text-neutral-500 mb-0.5">
+              E-mail
+            </label>
+            <Input
+              placeholder="Seu email preferido"
+              type="text"
+              {...register("email")}
+              className="bg-transparent "
+            />
 
-            loginModal.onClose();
-          }}
-        >
-          <FcGoogle className="mr-2" size={24} />
-          Entrar com Google
-        </Button>
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
 
-        <Button
-          disabled
-          className="hover:bg-neutral-800 flex gap-4 w-fit"
-          variant={"outline"}
-          onClick={() => {
-            signInWithGithub();
+          <div>
+            <label htmlFor="password" className="text-neutral-500 mb-0.5">
+              Senha
+            </label>
+            <Input
+              placeholder="Digite sua senha preferida"
+              type="password"
+              {...register("password")}
+              className="bg-transparent"
+            />
 
-            loginModal.onClose();
-          }}
-        >
-          <AiFillGithub className="mr-2" size={24} />
-          Entrar com Github
-        </Button>
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+
+          <Button
+            disabled={isLoading}
+            className="hover:bg-amber-500 flex gap-4 w-full mt-4 bg-amber-400 text-black border border-white"
+            variant={"default"}
+            type="submit"
+          >
+            {isLoading ? "Carregando..." : "Entrar"}
+          </Button>
+        </form>
 
         <Separator className="w-full bg-neutral-700" />
 
-        <div className=" text-neutral-500 text-center mt-4 font-light">
+        <div className=" text-neutral-500 text-center font-light">
           <div className=" justify-center flex flex-row items-center gap-2">
-            <div className="">Não tem uma conta?</div>
+            <div className="">Não tem uma conta ainda? </div>
             <div
               onClick={toggle}
-              className="text-primary-800 cursor-pointer hover:underline"
+              className="text-primary-800 cursor-pointer hover:underline text-amber-400"
             >
               Registre-se
             </div>
@@ -79,7 +134,7 @@ export const LoginModal = () => {
 
   return (
     <Modal
-      disabled={loading}
+      disabled={isLoading}
       isOpen={loginModal.isOpen}
       title="Login"
       onClose={loginModal.onClose}

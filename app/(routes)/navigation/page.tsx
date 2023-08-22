@@ -118,11 +118,31 @@ const NavigationPage = () => {
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Categoria" />
                   </SelectTrigger>
-                  <SelectContent className="bg-neutral-900">
-                    <SelectItem value="release-date">Lançamentos</SelectItem>
-                    <SelectItem value="alphabetical">Alfabética</SelectItem>
-                    <SelectItem value="popularity">Popularidade</SelectItem>
-                    <SelectItem value="relevance">Relevância</SelectItem>
+                  <SelectContent className="bg-neutral-900 ">
+                    <SelectItem
+                      className="bg-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+                      value="release-date"
+                    >
+                      Lançamentos
+                    </SelectItem>
+                    <SelectItem
+                      className="bg-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+                      value="alphabetical"
+                    >
+                      Alfabética
+                    </SelectItem>
+                    <SelectItem
+                      className="bg-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+                      value="popularity"
+                    >
+                      Popularidade
+                    </SelectItem>
+                    <SelectItem
+                      className="bg-neutral-900 hover:bg-neutral-800 transition-all cursor-pointer"
+                      value="relevance"
+                    >
+                      Relevância
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -154,7 +174,13 @@ const NavigationPage = () => {
                   })}
                 </div>
 
-                <div className="">Filtros..</div>
+                <div>
+                  {/* filtros em breve */}
+
+                  <h2>
+                    <span className="text-white">Filtros</span>
+                  </h2>
+                </div>
               </div>
             </div>
           </div>

@@ -21,7 +21,6 @@ import { SidebarItem } from "./SidebarItem";
 import useSidebar from "../../hooks/useSidebar";
 
 import { Separator } from "../ui/separator";
-import useAuth from "@/hooks/useAuth";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -31,29 +30,12 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
   const sidebar = useSidebar();
   const pathname = usePathname();
 
-  const { user } = useAuth();
-
   const collections = useMemo(
     () => [
       {
         label: "Favoritos",
         icon: AiOutlineHeart,
         href: "/favorites",
-      },
-      {
-        label: "Jogando",
-        icon: MdGamepad,
-        href: "/playing",
-      },
-      {
-        label: "Jogados",
-        icon: IoMdDoneAll,
-        href: "/played",
-      },
-      {
-        label: "A jogar",
-        icon: BsArrowBarRight,
-        href: "/to-play",
       },
     ],
     []
@@ -91,7 +73,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
         <div className={`flex flex-col w-[230px] 2xl:w-[250px]`}>
           <SidebarBox className="flex-1">
             <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
-              {user ? (
+              {/* {user ? (
                 <span>
                   Seja bem-vindo,
                   <span className="font-bold block text-amber-400">
@@ -105,7 +87,7 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
                     estranho
                   </span>
                 </span>
-              )}
+              )} */}
 
               <button
                 onClick={sidebar.onClose}

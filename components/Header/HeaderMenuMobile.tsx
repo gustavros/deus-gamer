@@ -13,7 +13,6 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import useAuth from "@/hooks/useAuth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
@@ -35,8 +34,6 @@ interface HeaderMenuMobileProps {
 export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-
-  const { user, signOut } = useAuth();
 
   const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
 
@@ -67,7 +64,7 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
               </Link>
             ))}
 
-            {user ? (
+            {/* {user ? (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
@@ -121,7 +118,7 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
                   Registre-se
                 </Button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       )}
