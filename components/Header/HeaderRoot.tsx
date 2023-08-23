@@ -35,7 +35,6 @@ export const HeaderRoot = () => {
   const pathname = usePathname();
   const router = useRouter();
 
-  const sidebar = useSidebar();
   const menu = useMenu();
 
   const loginModal = useLoginModal();
@@ -85,7 +84,7 @@ export const HeaderRoot = () => {
           </div>
         </div>
 
-        {user?.id ? (
+        {user ? (
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild className="cursor-pointer">
               <p className="text-neutral-600">({user.email})</p>

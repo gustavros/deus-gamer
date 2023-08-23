@@ -43,17 +43,19 @@ export const LoginModal = () => {
     setIsLoading(true);
 
     axios
-      .post("/api/auth/login", data)
+      .post("/api/auth/loginr", data)
       .then((res) => {
         toast.success("Login realizado com sucesso!");
         cookies.set("token", res.data.token, { path: "/" });
 
-        console.log(res)
+        console.log(res);
 
         loginModal.onClose();
       })
       .catch((error) => {
-        toast.error(error.response.data.error);
+        console.log(error);
+        
+        toast.error("Ocorreu um erro ao realizar o login!");
       })
       .finally(() => {
         setIsLoading(false);
