@@ -25,7 +25,6 @@ const GamePage = async ({ params }: GamePageProps) => {
       : game.screenshots![0].image;
 
   function handleScreenshotClick(id: number) {
-
     const screenshot = game.screenshots?.find((screenshot) => {
       return screenshot.id === id;
     });
@@ -91,14 +90,14 @@ const GamePage = async ({ params }: GamePageProps) => {
                   <a
                     href={`${url}open/${game.id}`}
                     target="_blank"
-                    className="py-4 px-8 bg-amber-400 text-zinc-900 flex items-center justify-center rounded uppercase w-full"
+                    className="py-4 px-8 bg-amber-400 text-zinc-900 flex items-center justify-center rounded uppercase w-full text-center max-w-full"
                   >
                     Jogar agora
                   </a>
 
-                  <button className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full">
+                  <button className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full text-center">
                     <BsPlusCircle size={20} />
-                    ADICIONAR AOS FAVORITOS
+                    Adicionar aos favoritos
                   </button>
                 </div>
               </div>

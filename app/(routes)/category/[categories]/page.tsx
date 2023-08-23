@@ -33,7 +33,7 @@ const CategoryPage = () => {
       ) : (
         <div className="bg-neutral-900 py-24 flex flex-col items-center gap-8">
           <div className="flex flex-col items-center">
-            <h1 className="text-5xl font-regular text-left text-neutral-100 py-8 px-10">
+            <h1 className="text-5xl font-regular text-left text-neutral-100 pb-4 px-10">
               {category.category}
             </h1>
 
@@ -49,7 +49,7 @@ const CategoryPage = () => {
                 className="hover:brightness-125 transition-all flex flex-col"
               >
                 <img
-                  className="rounded-lg cursor-pointer"
+                  className="rounded-lg cursor-pointer w-48"
                   src={game.thumbnail}
                   alt={game.title}
                 />

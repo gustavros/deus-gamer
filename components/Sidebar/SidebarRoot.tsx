@@ -21,6 +21,7 @@ import { SidebarItem } from "./SidebarItem";
 import useSidebar from "../../hooks/useSidebar";
 
 import { Separator } from "../ui/separator";
+import useAuthentication from "@/hooks/useAuthentication";
 
 interface SidebarRootProps {
   children: ReactNode;
@@ -29,6 +30,8 @@ interface SidebarRootProps {
 export const SidebarRoot = ({ children }: SidebarRootProps) => {
   const sidebar = useSidebar();
   const pathname = usePathname();
+
+  const { user } = useAuthentication();
 
   const collections = useMemo(
     () => [
@@ -72,22 +75,22 @@ export const SidebarRoot = ({ children }: SidebarRootProps) => {
       {sidebar.isOpen ? (
         <div className={`flex flex-col w-[230px] 2xl:w-[250px]`}>
           <SidebarBox className="flex-1">
-            <div className="pl-6 pr-3 py-4 text-xl flex justify-between">
-              {/* {user ? (
+            <div className="pl-6 pr-3 py-4  flex justify-between">
+              {user ? (
                 <span>
                   Seja bem-vindo,
                   <span className="font-bold block text-amber-400">
-                    {user.displayName}
+                    {user.name}
                   </span>
                 </span>
               ) : (
                 <span>
-                  Seja bem-vindo,
+                  Seja bem-vindo(a),
                   <span className="font-bold block text-amber-400">
                     estranho
                   </span>
                 </span>
-              )} */}
+              )}
 
               <button
                 onClick={sidebar.onClose}

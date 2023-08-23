@@ -159,7 +159,7 @@ const NavigationPage = () => {
                         <img
                           src={item.thumbnail}
                           alt={item.short_description}
-                          className=" w-36 rounded sm:w-80"
+                          className="w-36 rounded sm:w-80"
                         />
                         <div className="flex flex-col">
                           <h1 className=" truncate text-white text-sm sm:text-base lg:text-xl w-fit">
