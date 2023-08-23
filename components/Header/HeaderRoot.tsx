@@ -79,14 +79,14 @@ export const HeaderRoot = () => {
 
         {user ? (
           <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger asChild className="hidden sm:flex">
               <div className="bg-neutral-800 rounded-full w-8 h-8 cursor-pointer flex items-center justify-center border hover:bg-neutral-900 transition-all">
                 {firstWordUser}
               </div>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent
-              className="w-46 border-none rounded bg-neutral-800"
+              className="w-46 border-none rounded bg-neutral-800 border-red-500"
               align="end"
               forceMount
             >

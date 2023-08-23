@@ -36,9 +36,8 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
-
   const { user, logout } = useAuthentication();
+  const firstWordUser = user?.name.split(" ")[0].charAt(0).toUpperCase();
 
   return (
     <>
@@ -70,16 +69,13 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
             {user ? (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="cursor-pointer">
-                    <AvatarImage src={avatar} />
-                    <AvatarFallback>
-                      {user?.name?.charAt(0).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="bg-neutral-800 rounded-full w-8 h-8 cursor-pointer flex items-center justify-center border hover:bg-neutral-900 transition-all ">
+                    {firstWordUser}
+                  </div>
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent
-                  className="w-46 bg-neutral-900"
+                  className="w-46 border-none rounded bg-neutral-800 border-red-500"
                   align="center"
                   forceMount
                 >
@@ -93,11 +89,10 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
                       </p>
                     </div>
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator />
+                  <DropdownMenuSeparator className="bg-neutral-500" />
 
-                  <DropdownMenuItem>Perfil</DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/collection">Coleção</Link>
+                    <Link href="/favorites">Favoritos</Link>
                   </DropdownMenuItem>
 
                   <DropdownMenuItem
