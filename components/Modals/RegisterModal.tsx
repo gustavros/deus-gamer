@@ -48,7 +48,9 @@ export const RegisterModal = () => {
         loginModal.onOpen();
       })
       .catch((error) => {
-        toast.error(error.response.data.error);
+        console.log(error);
+
+        toast.error("Ocorreu um erro ao realizar o login!");
       })
       .finally(() => {
         setIsLoading(false);
@@ -65,7 +67,7 @@ export const RegisterModal = () => {
       <Heading center title="Crie sua conta" />
 
       <div className="flex flex-col items-center gap-3 mt-3">
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex gap-2 mb-2">
             <div>
               <label className="text-neutral-500 mb-0.5">Nome</label>
