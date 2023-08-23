@@ -50,7 +50,9 @@ export const RegisterModal = () => {
       .catch((error) => {
         console.log(error);
 
-        toast.error("Ocorreu um erro ao realizar o login!");
+        toast.error(
+          "Ocorreu um erro ao criar sua conta. Tente novamente mais tarde."
+        );
       })
       .finally(() => {
         setIsLoading(false);

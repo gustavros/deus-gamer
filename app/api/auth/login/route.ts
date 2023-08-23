@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 export async function POST(request: Request) {
   const body = await request.json();
+
   const { email, password } = body;
 
   const user = await prisma.user.findUnique({
@@ -15,45 +16,44 @@ export async function POST(request: Request) {
   });
 
   if (!user) {
-    return NextResponse.json(
-      { error: "E-mail não existe" },
-      {
-        status: 400,
-      }
-    );
+    return NextResponse.json({
+      error: "Usuário não encontrado",
+    });
   }
 
-  const isPasswordValid = bcrypt.compare(password, user?.hashedPassword);
+  const isPasswordValid = await bcrypt.compare(password, user?.hashedPassword);
 
-  if (!isPasswordValid) {
-    return NextResponse.json(
-      { error: "Senha inválida" },
+  if (isPasswordValid) {
+    const secret = process.env.NEXT_SECRET_JWT as string;
+
+    const token = jwt.sign(
       {
-        status: 400,
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+      secret,
+      {},
+      (err, token) => {
+        if (err) {
+          throw err;
+        }
+
+        return token;
       }
     );
+
+    return NextResponse.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+      },
+    });
+  } else {
+    return NextResponse.json({
+      error: "Usuário não encontrado",
+    });
   }
-
-  const secret = process.env.NEXT_SECRET_JWT as string;
-
-  const token = jwt.sign(
-    {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    },
-    secret,
-    {
-      expiresIn: "1h",
-    }
-  );
-
-  return NextResponse.json({
-    token,
-    user: {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    },
-  });
 }
