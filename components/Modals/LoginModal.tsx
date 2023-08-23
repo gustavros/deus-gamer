@@ -43,7 +43,7 @@ export const LoginModal = () => {
     setIsLoading(true);
 
     axios
-      .post("/api/auth/loginr", data)
+      .post("/api/auth/login", data)
       .then((res) => {
         toast.success("Login realizado com sucesso!");
         cookies.set("token", res.data.token, { path: "/" });
@@ -54,7 +54,7 @@ export const LoginModal = () => {
       })
       .catch((error) => {
         console.log(error);
-        
+
         toast.error("Ocorreu um erro ao realizar o login!");
       })
       .finally(() => {
