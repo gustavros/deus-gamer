@@ -43,9 +43,6 @@ export const HeaderRoot = () => {
 
   const { user, logout } = useAuthentication();
 
-  if (!user) {
-  }
-
   const routes = [
     {
       label: "Descobrir",
@@ -88,7 +85,7 @@ export const HeaderRoot = () => {
           </div>
         </div>
 
-        {user ? (
+        {user?.id ? (
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild className="cursor-pointer">
               <p className="text-neutral-600">({user.email})</p>
