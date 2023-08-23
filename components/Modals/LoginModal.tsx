@@ -1,27 +1,28 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import Cookies from "universal-cookie";
-
-import { Modal } from "./Modal";
 
 import { z } from "zod";
+
 import axios from "axios";
 import Heading from "../Heading";
+import { Modal } from "./Modal";
+
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "react-hot-toast";
-import { Input } from "../ui/input";
-
-import { loginSchema } from "@/schemas/loginSchema";
+import { SubmitHandler, useForm } from "react-hook-form";
 import useAuthentication from "@/hooks/useAuthentication";
 
+import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
+import { Input } from "../ui/input";
+
+import { toast } from "react-hot-toast";
+
+import { loginSchema } from "@/schemas/loginSchema";
+
 type loginSchema = z.infer<typeof loginSchema>;
-const cookies = new Cookies();
 
 export const LoginModal = () => {
   const registerModal = useRegisterModal();
