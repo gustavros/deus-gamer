@@ -19,6 +19,7 @@ function useAuthentication() {
 
     if (token) {
       const secret = process.env.NEXT_PUBLIC_SECRET_JWT as string;
+
       try {
         const decoded = jwt.verify(token, secret) as User;
 
@@ -31,6 +32,7 @@ function useAuthentication() {
 
   const login = (token: string) => {
     cookies.set("token", token, { path: "/" });
+    
     const secret = process.env.NEXT_PUBLIC_SECRET_JWT as string;
     const decoded = jwt.verify(token, secret) as User;
 
