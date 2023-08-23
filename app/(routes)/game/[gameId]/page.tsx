@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 import { getGame } from "@/actions/get-game";
 import { Separator } from "@/components/ui/separator";
@@ -16,6 +16,8 @@ const url = "https://www.freetogame.com/";
 
 const GamePage = async ({ params }: GamePageProps) => {
   const game = await getGame(params.gameId);
+
+  window.scrollTo(0, 0);
 
   let mainScreenshot =
     game.screenshots?.length === 0

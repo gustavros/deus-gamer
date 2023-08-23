@@ -12,7 +12,6 @@ import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useAuthentication from "@/hooks/useAuthentication";
 
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -21,15 +20,16 @@ import { Input } from "../ui/input";
 import { toast } from "react-hot-toast";
 
 import { loginSchema } from "@/schemas/loginSchema";
+import Cookies from "universal-cookie";
 
 type loginSchema = z.infer<typeof loginSchema>;
+const cookies = new Cookies();
 
 export const LoginModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuthentication();
 
   const {
     register,
@@ -46,8 +46,7 @@ export const LoginModal = () => {
       .post("/api/auth/login", data)
       .then((res) => {
         toast.success("Login realizado com sucesso!");
-
-        login(res.data.token);
+        cookies.set("token", res.data.token, { path: "/" });
 
         loginModal.onClose();
       })

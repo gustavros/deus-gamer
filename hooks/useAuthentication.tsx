@@ -1,4 +1,3 @@
-// useAuthentication.ts
 import { useState, useEffect } from "react";
 import jwt from "jsonwebtoken";
 import Cookies from "universal-cookie";
@@ -30,15 +29,6 @@ function useAuthentication() {
     }
   }, [cookies.get("token")]);
 
-  const login = (token: string) => {
-    cookies.set("token", token, { path: "/" });
-    
-    const secret = process.env.NEXT_PUBLIC_SECRET_JWT as string;
-    const decoded = jwt.verify(token, secret) as User;
-
-    setUser(decoded);
-  };
-
   const logout = () => {
     cookies.remove("token");
     setUser(null);
@@ -46,7 +36,7 @@ function useAuthentication() {
     window.location.reload();
   };
 
-  return { user, login, logout };
+  return { user, logout };
 }
 
 export default useAuthentication;
