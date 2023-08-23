@@ -15,23 +15,4 @@ model User {
   name           String
   email          String @unique
   hashedPassword String
-
-  libraries Library[]
-}
-
-model Game {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  title String
-  genre String
-
-  libraries Library[]
-}
-
-model Library {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  user User   @relation(fields: [userId], references: [id])
-  game Game   @relation(fields: [gameId], references: [id])
-
-  userId String @map("_userId") @db.ObjectId
-  gameId String @map("_gameId") @db.ObjectId
 }

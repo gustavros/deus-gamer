@@ -1,37 +1,51 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { getGame } from "@/actions/get-game";
 import { Separator } from "@/components/ui/separator";
 
 import { BsBrowserEdge, BsPlusCircle, BsWindows } from "react-icons/bs";
+import axios from "axios";
+import { IGame } from "@/interfaces/IGame";
+import prisma from "@/libs/prismadb";
+import useAuthentication from "@/hooks/useAuthentication";
+import { useParams } from "next/navigation";
+import { User } from "@prisma/client";
+import { toast } from "react-hot-toast";
 
-interface GamePageProps {
-  params: {
-    gameId: number;
-  };
-}
 const url = "https://www.freetogame.com/";
 
-const GamePage = async ({ params }: GamePageProps) => {
-  const game = await getGame(params.gameId);
+const GamePage = () => {
+  const [game, setGame] = useState<IGame>({} as IGame);
+  const [mainScreenshot, setMainScreenshot] = useState<string>("");
+  
+  const params = useParams();
 
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    async function loadGame() {
+      const response = await getGame(Number(params.gameId));
 
-  let mainScreenshot =
-    game.screenshots?.length === 0
-      ? "https://fakeimg.pl/1280x720/121212/ffe20a?text=:O"
-      : game.screenshots![0].image;
+      setGame(response);
+    }
 
-  function handleScreenshotClick(id: number) {
-    const screenshot = game.screenshots?.find((screenshot) => {
-      return screenshot.id === id;
-    });
+    loadGame();
+  }, []);
 
-    const mainScreenshot = document.getElementById("mainScreenshot");
+  useEffect(() => {
+    if (game.screenshots) {
+      setMainScreenshot(game.screenshots[0].image);
+    }
+  }, [game]);
 
-    mainScreenshot!.setAttribute("src", screenshot!.image);
+  function handleScreenshotClick(screenshotId: number) {
+    const screenshot = game.screenshots?.find(
+      (screenshot) => screenshot.id === screenshotId
+    );
+
+    if (screenshot) {
+      setMainScreenshot(screenshot.image);
+    }
   }
 
   return (
@@ -41,7 +55,6 @@ const GamePage = async ({ params }: GamePageProps) => {
           <h1 className="text-5xl font-bold text-amber-400 pb-2">
             {game.title}
           </h1>
-          {/* <p className="text-zinc-200 mb-4">{game.developer}</p> */}
 
           <div className="flex md:flex-row flex-col-reverse justify-between items-start gap-8 mt-4">
             <div>

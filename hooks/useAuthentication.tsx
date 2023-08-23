@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import jwt from "jsonwebtoken";
 import Cookies from "universal-cookie";
@@ -31,7 +33,7 @@ function useAuthentication() {
 
   const logout = () => {
     cookies.remove("token");
-    
+
     setUser(null);
   };
 
