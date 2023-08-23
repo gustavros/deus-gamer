@@ -25,7 +25,6 @@ const GamePage = async ({ params }: GamePageProps) => {
       : game.screenshots![0].image;
 
   function handleScreenshotClick(id: number) {
-    console.log("clicou" + id);
 
     const screenshot = game.screenshots?.find((screenshot) => {
       return screenshot.id === id;

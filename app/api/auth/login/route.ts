@@ -16,9 +16,10 @@ export async function POST(request: Request) {
   });
 
   if (!user) {
-    return NextResponse.json({
-      error: "Usuário não encontrado",
-    });
+    return NextResponse.json(
+      { message: "Nenhum usuário encontrado com esse e-mail" },
+      { status: 404 }
+    );
   }
 
   const isPasswordValid = await bcrypt.compare(password, user?.hashedPassword);
@@ -33,14 +34,7 @@ export async function POST(request: Request) {
         name: user.name,
       },
       secret,
-      {},
-      (err, token) => {
-        if (err) {
-          throw err;
-        }
-
-        return token;
-      }
+      { expiresIn: "1d" }
     );
 
     return NextResponse.json({
@@ -52,8 +46,6 @@ export async function POST(request: Request) {
       },
     });
   } else {
-    return NextResponse.json({
-      error: "Usuário não encontrado",
-    });
+    return NextResponse.json({ message: "Senha incorreta" }, { status: 404 });
   }
 }

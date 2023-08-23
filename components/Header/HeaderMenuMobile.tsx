@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
 import { Button } from "../ui/button";
+import useAuthentication from "@/hooks/useAuthentication";
 
 interface HeaderMenuMobileProps {
   menu: {
@@ -36,6 +37,8 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
   const registerModal = useRegisterModal();
 
   const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
+
+  const { user, logout } = useAuthentication();
 
   return (
     <>
@@ -64,13 +67,13 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
               </Link>
             ))}
 
-            {/* {user ? (
+            {user ? (
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer">
-                    <AvatarImage src={user.photoURL ? user.photoURL : avatar} />
+                    <AvatarImage src={avatar} />
                     <AvatarFallback>
-                      {user.displayName?.charAt(0).toUpperCase()}
+                      {user?.name?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
@@ -83,7 +86,7 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">
-                        {user.displayName}
+                        {user.name}
                       </p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
@@ -99,26 +102,34 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
 
                   <DropdownMenuItem
                     className="text-red-400 cursor-pointer"
-                    onClick={signOut}
+                    onClick={() => {
+                      logout();
+
+                      menu.onClose();
+                    }}
                   >
                     Sair
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <div className="flex flex-col gap-4 pt-8">
-                <Button variant="outline" onClick={loginModal.onOpen}>
+              <div className="flex flex-col mt-8 gap-2 items-center sm:hidden">
+                <Button
+                  onClick={loginModal.onOpen}
+                  variant="outline"
+                  className="text-neutral-100 hover:bg-white hover:text-neutral-900"
+                >
                   Entrar
                 </Button>
-
                 <Button
-                  className="text-neutral-900 bg-amber-400 hover:bg-amber-500 transition-all"
                   onClick={registerModal.onOpen}
+                  variant="default"
+                  className="text-neutral-900 bg-amber-400 rounded border border-amber-400 hover:bg-neutral-900 hover:text-white"
                 >
-                  Registre-se
+                  Cadastrar
                 </Button>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       )}

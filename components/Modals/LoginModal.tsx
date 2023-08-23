@@ -48,14 +48,18 @@ export const LoginModal = () => {
         toast.success("Login realizado com sucesso!");
         cookies.set("token", res.data.token, { path: "/" });
 
-        console.log(res);
-
         loginModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.response.data.message);
 
-        toast.error("Ocorreu um erro ao realizar o login!");
+        if (
+          error.response.data.message ===
+          "Nenhum usuário encontrado com esse e-mail"
+        ) {
+          loginModal.onClose();
+          registerModal.onOpen();
+        }
       })
       .finally(() => {
         setIsLoading(false);

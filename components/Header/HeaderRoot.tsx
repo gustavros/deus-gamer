@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 import { HeaderSearch } from "./HeaderSearch";
@@ -12,10 +12,8 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 import useMenu from "@/hooks/useMenu";
 import { HeaderMenuMobile } from "./HeaderMenuMobile";
-import useSidebar from "@/hooks/useSidebar";
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 
 import {
@@ -26,21 +24,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import axios from "axios";
 import useAuthentication from "@/hooks/useAuthentication";
 
 export const HeaderRoot = () => {
-  const avatar = "https://ionicframework.com/docs/img/demos/avatar.svg";
-
   const pathname = usePathname();
-  const router = useRouter();
-
   const menu = useMenu();
-
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-
   const { user, logout } = useAuthentication();
+
+  const firstWordUser = user?.name.split(" ")[0].charAt(0).toUpperCase();
 
   const routes = [
     {
@@ -86,20 +79,39 @@ export const HeaderRoot = () => {
 
         {user ? (
           <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild className="cursor-pointer">
-              <p className="text-neutral-600">({user.email})</p>
+            <DropdownMenuTrigger asChild>
+              <div className="bg-neutral-800 rounded-full w-8 h-8 cursor-pointer flex items-center justify-center border hover:bg-neutral-900 transition-all">
+                {firstWordUser}
+              </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56 bg-neutral-800">
-              <DropdownMenuLabel>{user.name || user.email}</DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-neutral-400" />
+
+            <DropdownMenuContent
+              className="w-46 border-none rounded bg-neutral-800"
+              align="end"
+              forceMount
+            >
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">
+                    {user.name}
+                  </p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user.email}
+                  </p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-neutral-500" />
+
               <DropdownMenuItem>
                 <Link href="/favorites">Favoritos</Link>
               </DropdownMenuItem>
+
               <DropdownMenuItem
                 className="text-red-400 cursor-pointer"
                 onClick={() => {
                   logout();
-                  router.push("/");
+
+                  menu.onClose();
                 }}
               >
                 Sair
@@ -107,20 +119,20 @@ export const HeaderRoot = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <div className="flex gap-2 items-center">
+          <div className="hidden gap-2 items-center sm:flex">
             <Button
               onClick={loginModal.onOpen}
               variant="outline"
-              className="text-neutral-100 hover:text-white"
+              className="text-neutral-100 hover:bg-white hover:text-neutral-900"
             >
-              entrar
+              Entrar
             </Button>
             <Button
               onClick={registerModal.onOpen}
               variant="default"
-              className="text-neutral-900 hover:text-white bg-amber-400"
+              className="text-neutral-900 bg-amber-400 rounded border border-amber-400 hover:bg-neutral-900 hover:text-white"
             >
-              cadastrar
+              Cadastrar
             </Button>
           </div>
         )}

@@ -10,7 +10,6 @@ import React from "react";
 const SortByPage = () => {
   const params = useParams();
 
-  console.log(params);
 
   const { data, loading } = useFetch({
     params: {

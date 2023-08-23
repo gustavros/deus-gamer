@@ -31,9 +31,8 @@ function useAuthentication() {
 
   const logout = () => {
     cookies.remove("token");
+    
     setUser(null);
-
-    window.location.reload();
   };
 
   return { user, logout };
