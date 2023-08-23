@@ -48,6 +48,8 @@ export const LoginModal = () => {
         toast.success("Login realizado com sucesso!");
         cookies.set("token", res.data.token, { path: "/" });
 
+        console.log(res)
+
         loginModal.onClose();
       })
       .catch((error) => {

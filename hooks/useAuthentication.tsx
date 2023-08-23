@@ -5,7 +5,7 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   name: string;
 }
