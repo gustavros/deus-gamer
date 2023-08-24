@@ -34,6 +34,8 @@ function useAuthentication() {
   const logout = () => {
     cookies.remove("token");
 
+    
+
     setUser(null);
   };
 

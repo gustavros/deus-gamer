@@ -14,12 +14,12 @@ import Loading from "@/components/Loading";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import useAuthentication from "@/hooks/useAuthentication";
-import { User } from "@prisma/client";
 
 const url = "https://www.freetogame.com/";
 
 const GamePage = () => {
   const [favorites, setFavorites] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [game, setGame] = useState<IGame>({} as IGame);
   const [mainScreenshot, setMainScreenshot] = useState("");
