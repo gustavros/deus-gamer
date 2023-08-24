@@ -97,11 +97,7 @@ export const HeaderMenuMobile = ({ menu, routes }: HeaderMenuMobileProps) => {
 
                   <DropdownMenuItem
                     className="text-red-400 cursor-pointer"
-                    onClick={() => {
-                      logout();
-
-                      menu.onClose();
-                    }}
+                    onClick={logout}
                   >
                     Sair
                   </DropdownMenuItem>

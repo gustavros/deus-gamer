@@ -9,7 +9,10 @@ import { useFetch } from "@/hooks/useFetch";
 
 import { SwiperSlideRoot } from "@/components/Swiper/SwiperSlideRoot";
 import Loading from "@/components/Loading";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import useAuthentication from "@/hooks/useAuthentication";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
   const { data: games, loading } = useFetch();

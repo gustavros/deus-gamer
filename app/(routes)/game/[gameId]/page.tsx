@@ -5,18 +5,26 @@ import React, { useEffect, useState } from "react";
 import { getGame } from "@/actions/get-game";
 import { Separator } from "@/components/ui/separator";
 
+import Link from "next/link";
+
 import { BsBrowserEdge, BsPlusCircle, BsWindows } from "react-icons/bs";
 import { IGame } from "@/interfaces/IGame";
 import { useParams } from "next/navigation";
 import Loading from "@/components/Loading";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import useAuthentication from "@/hooks/useAuthentication";
+import { User } from "@prisma/client";
 
 const url = "https://www.freetogame.com/";
 
 const GamePage = () => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [favorites, setFavorites] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [game, setGame] = useState<IGame>({} as IGame);
-  const [mainScreenshot, setMainScreenshot] = useState<string>("");
+  const [mainScreenshot, setMainScreenshot] = useState("");
 
+  const { user } = useAuthentication();
   const params = useParams();
 
   useEffect(() => {
@@ -30,7 +38,7 @@ const GamePage = () => {
     }
 
     loadGame();
-  }, []);
+  }, [params.gameId]);
 
   useEffect(() => {
     if (game.screenshots) {
@@ -47,6 +55,40 @@ const GamePage = () => {
       setMainScreenshot(screenshot.image);
     }
   }
+
+  function handleAddToFavorites() {
+    axios
+      .post("/api/favorite/add-to-favorites", {
+        gameId: game.id,
+        userId: user?.id,
+      })
+      .then((res) => {
+        toast.success("Jogo adicionado aos favoritos com sucesso!");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  }
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get("/api/favorite/get-favorites", {
+          params: {
+            userId: user.id,
+          },
+        })
+        .then((res) => {
+          setFavorites(res.data);
+        });
+    }
+  }, [user]);
+
+  const isGameInFavorites = (gameId: string) => {
+    return favorites.find((favorite) => favorite == gameId);
+  };
+
+  console.log(isGameInFavorites(String(game.id)));
 
   return (
     <>
@@ -107,15 +149,28 @@ const GamePage = () => {
                       <a
                         href={`${url}open/${game.id}`}
                         target="_blank"
-                        className="py-4 px-8 bg-amber-400 text-zinc-900 flex items-center justify-center rounded uppercase w-full text-center max-w-full"
+                        className="py-4 px-8 bg-amber-400 text-zinc-900 flex items-center justify-center rounded uppercase w-full text-center max-w-full hover:bg-amber-500 transition-all"
                       >
                         Jogar agora
                       </a>
 
-                      <button className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full text-center">
-                        <BsPlusCircle size={20} />
-                        Adicionar aos favoritos
-                      </button>
+                      {!isGameInFavorites(String(game.id)) ? (
+                        <button
+                          onClick={handleAddToFavorites}
+                          className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full text-center max-w-full hover:bg-zinc-100 hover:text-zinc-900 transition-all"
+                        >
+                          <BsPlusCircle size={20} />
+
+                          <span>Adicionar aos favoritos</span>
+                        </button>
+                      ) : (
+                        <Link
+                          className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full text-center max-w-full hover:bg-zinc-100 hover:text-zinc-900 transition-all"
+                          href="/favorites"
+                        >
+                          Adicionado aos favoritos
+                        </Link>
+                      )}
                     </div>
                   </div>
 

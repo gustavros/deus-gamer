@@ -31,6 +31,7 @@ export const HeaderRoot = () => {
   const menu = useMenu();
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
   const { user, logout } = useAuthentication();
 
   const firstWordUser = user?.name.split(" ")[0].charAt(0).toUpperCase();
@@ -102,17 +103,13 @@ export const HeaderRoot = () => {
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-neutral-500" />
 
-              <DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer hover:bg-neutral-900 hover:text-neutral-300">
                 <Link href="/favorites">Favoritos</Link>
               </DropdownMenuItem>
 
               <DropdownMenuItem
-                className="text-red-400 cursor-pointer"
-                onClick={() => {
-                  logout();
-
-                  menu.onClose();
-                }}
+                className="text-red-400 cursor-pointer hover:bg-neutral-900 hover:text-red-500"
+                onClick={logout}
               >
                 Sair
               </DropdownMenuItem>
