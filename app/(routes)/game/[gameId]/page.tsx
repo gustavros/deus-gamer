@@ -44,6 +44,10 @@ const GamePage = () => {
     if (game.screenshots) {
       setMainScreenshot(game.screenshots[0].image);
     }
+
+    return () => {
+      setMainScreenshot("");
+    };
   }, [game]);
 
   function handleScreenshotClick(screenshotId: number) {
@@ -62,8 +66,10 @@ const GamePage = () => {
         gameId: game.id,
         userId: user?.id,
       })
-      .then((res) => {
+      .then(() => {
         toast.success("Jogo adicionado aos favoritos com sucesso!");
+
+        window.location.reload();
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -84,11 +90,11 @@ const GamePage = () => {
     }
   }, [user]);
 
-  const isGameInFavorites = (gameId: string) => {
-    return favorites.find((favorite) => favorite == gameId);
-  };
+  const isGameInFavorites = (gameId: number) => {
+    const game = favorites.find((favorite) => favorite == gameId);
 
-  console.log(isGameInFavorites(String(game.id)));
+    return game;
+  };
 
   return (
     <>
@@ -154,7 +160,7 @@ const GamePage = () => {
                         Jogar agora
                       </a>
 
-                      {!isGameInFavorites(String(game.id)) ? (
+                      {!isGameInFavorites(game.id) ? (
                         <button
                           onClick={handleAddToFavorites}
                           className="py-2 px-8 bg-transnparent text-zinc-100 flex gap-2 items-center justify-center rounded uppercase border text-xs w-full text-center max-w-full hover:bg-zinc-100 hover:text-zinc-900 transition-all"
