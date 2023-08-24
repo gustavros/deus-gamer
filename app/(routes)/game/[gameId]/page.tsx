@@ -6,13 +6,8 @@ import { getGame } from "@/actions/get-game";
 import { Separator } from "@/components/ui/separator";
 
 import { BsBrowserEdge, BsPlusCircle, BsWindows } from "react-icons/bs";
-import axios from "axios";
 import { IGame } from "@/interfaces/IGame";
-import prisma from "@/libs/prismadb";
-import useAuthentication from "@/hooks/useAuthentication";
 import { useParams } from "next/navigation";
-import { User } from "@prisma/client";
-import { toast } from "react-hot-toast";
 import Loading from "@/components/Loading";
 
 const url = "https://www.freetogame.com/";
@@ -30,6 +25,7 @@ const GamePage = () => {
 
       setGame(response);
 
+      window.scrollTo(0, 0);
       setLoading(false);
     }
 
