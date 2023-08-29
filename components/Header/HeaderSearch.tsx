@@ -22,7 +22,7 @@ export const HeaderSearch = () => {
       <div className="relative">
         <AiOutlineSearch
           size={18}
-          className="text-neutral-400 absolute top-3 left-3"
+          className="text-neutral-400 absolute top-3 left-3 z-50"
         />
         <Input
           onBlur={closeInputOnBlur}
@@ -34,7 +34,7 @@ export const HeaderSearch = () => {
         />
 
         {search && (
-          <div className="absolute top-12 left-0 w-[260px] md:w-[400px] bg-neutral-800  rounded">
+          <div className="absolute top-12 left-0 w-[260px] md:w-[400px] bg-neutral-800 rounded z-50">
             <ul className="text-neutral-500 flex flex-col py-8">
               {filteredGames
                 ?.map((item) => (

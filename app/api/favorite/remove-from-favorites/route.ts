@@ -1,9 +1,10 @@
 import prisma from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function DELETE(request: Request) {
   try {
     const body = await request.json();
+
     const { gameId, userId } = body;
 
     if (!userId) {
@@ -29,24 +30,24 @@ export async function POST(request: Request) {
       );
     }
 
-    if (user.favorites.includes(gameId)) {
+    if (!user.favorites.includes(gameId)) {
       return NextResponse.json(
-        { message: "Você já favoritou esse jogo" },
+        { message: "Você ainda não favoritou esse jogo" },
         { status: 401 }
       );
     }
 
-    user.favorites.push(gameId);
+    user.favorites = user.favorites.filter((id) => id !== gameId);
 
     await prisma.user.update({
       where: { id: userId },
       data: { favorites: user.favorites },
     });
 
-    return NextResponse.json({ message: "Jogo não favoritado ainda" });
-    
+    return NextResponse.json({ message: "Jogo removido dos favoritos" });
   } catch (error) {
     console.error("Erro:", error);
+
     return NextResponse.json(
       { message: "Ocorreu um erro ao processar sua solicitação" },
       { status: 500 }

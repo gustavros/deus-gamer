@@ -109,7 +109,11 @@ export const HeaderRoot = () => {
 
               <DropdownMenuItem
                 className="text-red-400 cursor-pointer hover:bg-neutral-900 hover:text-red-500"
-                onClick={logout}
+                onClick={() => {
+                  logout();
+
+                  window.location.reload();
+                }}
               >
                 Sair
               </DropdownMenuItem>

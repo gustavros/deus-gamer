@@ -9,10 +9,6 @@ import { useFetch } from "@/hooks/useFetch";
 
 import { SwiperSlideRoot } from "@/components/Swiper/SwiperSlideRoot";
 import Loading from "@/components/Loading";
-import { useEffect, useState } from "react";
-import useAuthentication from "@/hooks/useAuthentication";
-import axios from "axios";
-import { toast } from "react-hot-toast";
 
 export default function Home() {
   const { data: games, loading } = useFetch();
@@ -58,7 +54,7 @@ export default function Home() {
           <div className="flex flex-col justify-center items-center pt-20 w-full">
             {/* hero */}
             <div className="flex flex-col 2xl:flex-row gap-8 px-8">
-              <Link href={`/game/${games?.map((game) => game.id).at(0)}`}>
+              <Link href={`/game/${games ? games[0]?.id : ""}`}>
                 <Image
                   src="https://i.ytimg.com/vi/PWe0pC2akpo/maxresdefault.jpg"
                   alt="Banner"

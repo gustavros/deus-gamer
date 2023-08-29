@@ -8,6 +8,12 @@ import { IGameList } from "@/interfaces/IGameList";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import Link from "next/link";
+import { BsTrash } from "react-icons/bs";
+
+import { Button } from "@/components/ui/button";
+import { toast } from "react-hot-toast";
+
 const Favorites = () => {
   const { user } = useAuthentication();
 
@@ -16,6 +22,40 @@ const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
   const [games, setGames] = useState<IGameList[] | null>([]);
   const [loading, setLoading] = useState(false);
+  const [confirmations, setConfirmations] = useState<{
+    [key: number]: boolean;
+  }>({});
+
+  const handleToggleConfirm = (gameId: number) => {
+    setConfirmations((prev) => ({ ...prev, [gameId]: !prev[gameId] }));
+  };
+
+  function handleRemoveFavorite(gameId: number, userId: string) {
+    if (user) {
+      setLoading(true);
+
+      axios
+        .delete("/api/favorite/remove-from-favorites", {
+          data: {
+            gameId,
+            userId,
+          },
+        })
+        .then(() => {
+          setFavorites((prev) =>
+            prev.filter((favorite) => favorite !== gameId)
+          );
+
+          toast.success("Jogo removido dos favoritos com sucesso!");
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }
 
   useEffect(() => {
     if (user) {
@@ -54,9 +94,11 @@ const Favorites = () => {
 
   return (
     <div className="min-h-screen bg-neutral-900 px-8">
-      <h1 className="text-amber-400 text-2xl font-bold py-8">Favoritos</h1>
+      <h1 className="text-amber-400 text-3xl font-bold py-8 text-center">
+        Favoritos
+      </h1>
 
-      <div className="flex flex-wrap gap-4 ">
+      <div className="flex flex-wrap gap-4 justify-center">
         {loading && <Loading />}
 
         {!user && (
@@ -65,29 +107,59 @@ const Favorites = () => {
               Você precisa estar logado para ver seus favoritos.
             </p>
 
-            <p>
-              Faça login clicando{" "}
-              <button className="text-amber-400" onClick={loginModal.onOpen}>
+            <p className="text-center">
+              Faça login clicando
+              <Button
+                variant={"link"}
+                className="text-amber-400 pl-2"
+                onClick={loginModal.onOpen}
+              >
                 aqui
-              </button>
+              </Button>
             </p>
           </div>
         )}
 
-        {games &&
-          games?.map((game) => (
-            <div
-              key={game.id}
-              className="bg-neutral-800 rounded-md p-4 flex flex-col gap-4"
-            >
-              <h2 className="text-neutral-100">{game.title}</h2>
-              <img
-                className="rounded-md w-48"
-                src={game.thumbnail}
-                alt={game.title}
-              />
+        {games?.map((game) => (
+          <div
+            key={game.id}
+            className="bg-neutral-800 rounded-md p-4 flex flex-col gap-4 w-96"
+          >
+            <h2 className="text-neutral-100 text-xl font-bold ">
+              {game.title}
+            </h2>
+            <img
+              className="rounded-md object-cover"
+              src={game.thumbnail}
+              alt={game.title}
+            />
+
+            <div className="flex items-center gap-2 w-full">
+              <Link
+                href={`/game/${game.id}`}
+                className=" bg-amber-500 hover:bg-amber-600 p-2 rounded-lg text-sm text-center flex-1"
+              >
+                Ver mais
+              </Link>
+              <Button
+                onClick={() => handleToggleConfirm(game.id)}
+                variant={"default"}
+                size={"sm"}
+                className=" bg-red-500 hover:bg-red-600 text-sm"
+              >
+                {confirmations[game.id] ? (
+                  <span
+                    onClick={() => handleRemoveFavorite(game.id, user?.id!)}
+                  >
+                    Confirmar
+                  </span>
+                ) : (
+                  <BsTrash />
+                )}
+              </Button>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   );

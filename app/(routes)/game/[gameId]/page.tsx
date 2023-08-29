@@ -68,8 +68,6 @@ const GamePage = () => {
       })
       .then(() => {
         toast.success("Jogo adicionado aos favoritos com sucesso!");
-
-        window.location.reload();
       })
       .catch((error) => {
         toast.error(error.response.data.message);
@@ -126,7 +124,7 @@ const GamePage = () => {
                             onClick={() => handleScreenshotClick(screenshot.id)}
                             key={screenshot.id}
                             src={screenshot.image}
-                            className="w-24 lg:w-56 h-auto rounded shadow-md cursor-pointer"
+                            className="w-24 lg:w-36 h-auto rounded shadow-md cursor-pointer"
                           />
                         );
                       })}
