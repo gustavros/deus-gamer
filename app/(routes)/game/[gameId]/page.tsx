@@ -103,7 +103,7 @@ const GamePage = () => {
           <div className="container mx-auto">
             <div className="p-6">
               <h1 className="text-5xl font-bold text-amber-400 pb-2">
-                {game.title}
+                {game.title} 
               </h1>
 
               <div className="flex md:flex-row flex-col-reverse justify-between items-start gap-8 mt-4">

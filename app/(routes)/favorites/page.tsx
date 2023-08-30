@@ -42,11 +42,11 @@ const Favorites = () => {
           },
         })
         .then(() => {
+          setConfirmations((prev) => ({ ...prev, [gameId]: false }));
+
           setFavorites((prev) =>
             prev.filter((favorite) => favorite !== gameId)
           );
-
-          toast.success("Jogo removido dos favoritos com sucesso!");
         })
         .catch((err) => {
           console.log(err);
@@ -58,22 +58,27 @@ const Favorites = () => {
   }
 
   useEffect(() => {
-    if (user) {
-      setLoading(true);
+    const fetchFavorites = async () => {
+      if (user) {
+        setLoading(true);
 
-      axios
-        .get("/api/favorite/get-favorites", {
-          params: {
-            userId: user.id,
-          },
-        })
-        .then((res) => {
-          setFavorites(res.data);
-        })
-        .finally(() => {
+        try {
+          const response = await axios.get("/api/favorite/get-favorites", {
+            params: {
+              userId: user.id,
+            },
+          });
+
+          setFavorites(response.data);
+        } catch (error) {
+          console.error("Erro ao buscar favoritos:", error);
+        } finally {
           setLoading(false);
-        });
-    }
+        }
+      }
+    };
+
+    fetchFavorites();
   }, [user]);
 
   useEffect(() => {
@@ -110,12 +115,20 @@ const Favorites = () => {
             <p className="text-center">
               Faça login clicando
               <Button
-                variant={"link"}
+                variant={"default"}
                 className="text-amber-400 pl-2"
                 onClick={loginModal.onOpen}
               >
                 aqui
               </Button>
+            </p>
+          </div>
+        )}
+
+        {user && games?.length === 0 && (
+          <div>
+            <p className="text-neutral-100">
+              Você não tem nenhum jogo favorito.
             </p>
           </div>
         )}
