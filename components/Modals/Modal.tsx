@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { MouseEvent, useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 
 interface ModalProps {
@@ -16,6 +16,15 @@ export const Modal = ({ isOpen, onClose, title, body }: ModalProps) => {
     setShowModal(isOpen);
   }, [isOpen]);
 
+  const closeModalClickingOutside = useCallback(
+    (e: MouseEvent) => {
+      if (e.target === e.currentTarget) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   const handleClose = useCallback(() => {
     setShowModal(false);
     onClose();
@@ -31,7 +40,11 @@ export const Modal = ({ isOpen, onClose, title, body }: ModalProps) => {
 
   return (
     <>
-      <div className="fixed justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
+      <div
+        onClick={closeModalClickingOutside}
+        className="fixed justify-center items-center flex overflow-x-hidden inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70"
+        id="modal"
+      >
         <div className="relative w-full md:w-4/6 lg:w-3/6 xl:w-2/5 my-6 mx-auto lg:h-auto md:h-auto">
           {/*content*/}
 
